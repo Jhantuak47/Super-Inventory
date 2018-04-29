@@ -1,0 +1,43 @@
+package com.superInvent.controllers.authentication;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.superInvent.DAO.LoginRegistrationDAO;
+import com.superInvent.POJO.Users;
+
+/**
+ * Servlet implementation class LoginServlet
+ */
+@WebServlet(description = "user login servlet", urlPatterns = { "/login" })
+public class LoginServlet extends HttpServlet {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email  = request.getParameter("login_email");
+		String pass = request.getParameter("login_password");
+		
+		Users user = new LoginRegistrationDAO().getUserDetails(pass, email);
+			if(user != null && user instanceof Users) {
+				HttpSession session = request.getSession();
+				session.setAttribute("name", user.getName());
+				session.setAttribute("email", user.getEmail());
+				session.setAttribute("is_admin", user.getIs_admin());
+				session.setAttribute("mobile", user.getMobile());
+				session.setAttribute("last_login", user.getLast_login());
+				session.setAttribute("createdAt", user.getCreatedAt());
+				//updating login time..
+				new LoginRegistrationDAO().updateLastLogin(email);
+				response.sendRedirect("./views/dashboard.jsp");
+			}else {
+				System.out.println("fail");
+			}
+	}
+
+}
