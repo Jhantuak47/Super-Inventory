@@ -22,6 +22,7 @@ public class AddCategory extends HttpServlet {
 		try {
 			request.setAttribute("allCategories", new CategoryDAO().getAllCategories());
 			request.getRequestDispatcher("./views/modules/category_master/add_category.jsp").forward(request, response);
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}

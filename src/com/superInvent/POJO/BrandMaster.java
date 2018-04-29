@@ -3,11 +3,18 @@ package com.superInvent.POJO;
 import java.sql.Timestamp;
 
 public class BrandMaster {
+	private int id;
 	private String name;
 	private Timestamp created_at;
 	private Timestamp updated_at;
 	private int status = 0;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getStatus() {
 		return status;
 	}

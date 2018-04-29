@@ -47,7 +47,6 @@ function add_category(e){
 	e.preventDefault();
 	cat_name = $("#cat_name");
 	cat_type = $('#parent_cat' );
-	console.log($("#add_cat_form").serialize());
 	if(cat_name.val() == "" && cat_type.val() == "-1"){
 		 $('#errorMessage').text("(*) mandatory field");
     	 $('#success_alert').hide();

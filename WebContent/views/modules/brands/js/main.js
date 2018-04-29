@@ -36,6 +36,6 @@
 		}else{
 			console.log('from here');
 			b_name.addClass("border-danger");
-			$('#b_error').addClass("text-danger").text('brand name must be string !');
+			$('#b_error').addClass("text-danger").text('brand name should not kept blank !');
 		}
 	}

@@ -1,6 +1,7 @@
 package com.superInvent.controllers.category_master;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.superInvent.DAO.CategoryDAO;
 import com.superInvent.POJO.CategoryMaster;
+import com.superInvent.Services.category_master.CategoryServices;
 
 /**
  * Servlet implementation class ListCategory
@@ -41,8 +43,19 @@ public class ListCategory extends HttpServlet {
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("from here");
+		String result = "";
+		try {
+			List<Object[]> categories= new CategoryDAO().getAllCategories();
+			
+			//calling service method to get all category name and id's..
+			result = new CategoryServices().getAllCategory(categories);
+			new PrintWriter(response.getWriter()).print(result);
+		} catch (Exception e) {
+			System.out.println("from do post of list category..");
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 }

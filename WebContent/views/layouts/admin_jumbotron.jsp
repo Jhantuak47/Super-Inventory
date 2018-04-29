@@ -29,7 +29,7 @@
 						  <div class="card-body">
 						    <h5 class="card-title">Product Master</h5>
 						    <p class="card-text">Here you can add or manage your Products</p>
-						    <a href="#" class="btn btn-info  pull-right" data-toggle="modal" data-target="#addProduct"><i class = "fa fa-plus"></i>&nbsp;Add</a>
+						    <a href="#" class="btn btn-info  pull-right" onclick = "add_product_btn();"><i class = "fa fa-plus"></i>&nbsp;Add</a>
 							    <a href="#" class="btn btn-success  pull-left"><i class = "fa fa-edit"></i>&nbsp;Manage</a>
 						  </div>
 						</div>

@@ -26,7 +26,7 @@ public class LoginRegistrationDAO extends JDBCConnection{
 							user.setLast_login(rs.getTimestamp("last_login"));
 							user.setCreatedAt(rs.getTimestamp("created_at"));
 							user.setAddress(rs.getString("address"));
-							user.setPassword(rs.getString("password"));
+							user.setPassword(rs.getString("u_password"));
 						}
 					  return user;
 					}
@@ -34,7 +34,7 @@ public class LoginRegistrationDAO extends JDBCConnection{
 				System.out.println(e);
 			}
 		}
-		return user;
+		return null;
 	}
 	public void updateLastLogin(String email) {
 		query = "UPDATE users SET `last_login` = now() where u_email = '" + email +"'";

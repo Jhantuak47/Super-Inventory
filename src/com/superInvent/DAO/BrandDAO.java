@@ -2,6 +2,8 @@ package com.superInvent.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.superInvent.POJO.BrandMaster;
 
@@ -39,5 +41,28 @@ public class BrandDAO extends JDBCConnection {
 			System.out.println(e.getMessage());
 		}
 		return false;
+	}
+	
+	//get brnad name and id..
+	public List<BrandMaster> list(){
+		query = "select * from brand";
+		List<BrandMaster> brands = new ArrayList<BrandMaster>();
+		try {
+			ResultSet rs = this.createStatement(query);
+			while(rs.next()) {
+				BrandMaster brand = new BrandMaster();
+				brand.setId(rs.getInt("id"));
+				brand.setName(rs.getString("b_name"));
+				brand.setCreated_at(rs.getTimestamp("created_at"));
+				brand.setStatus(rs.getInt("status"));
+				brand.setUpdated_at(rs.getTimestamp("updated_at"));
+				brands.add(brand);
+			}
+			return brands;
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("from list brandDAO");
+		}
+		return null;
 	}
 }
