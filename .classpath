@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/home/jhantu/Downloads/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="/home/jhantu/Downloads/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="/home/jhantu/Downloads/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

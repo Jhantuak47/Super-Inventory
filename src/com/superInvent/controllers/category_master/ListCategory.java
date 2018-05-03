@@ -21,28 +21,33 @@ import com.superInvent.Services.category_master.CategoryServices;
 @WebServlet(description = "Use to list all categories", urlPatterns = { "/list_category" })
 public class ListCategory extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response){
+		String page_no = request.getParameter("page_no");
+		page_no = (page_no != null) ? page_no : "1";
+		int currentPage = Integer.parseInt(page_no);
+		int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
+		String link = "list_category";
 		try {
+			//lists of categories..
 			List<CategoryMaster> categoryLists =  new ArrayList<CategoryMaster>();
-			
-			categoryLists = new CategoryDAO().list();
-			
+			Object[] objects = new CategoryDAO().list(currentPage, numberOfResultPerPage, link);
+			categoryLists = (List<CategoryMaster>) objects[0];
 			if(categoryLists != null && !categoryLists.isEmpty()) {
-				request.setAttribute("categoryLists", categoryLists);
+				request.setAttribute("categoryLists", objects[0]);
+				request.setAttribute("pagination", objects[1]);
+				request.setAttribute("page_no", currentPage);
+				
 				request.getRequestDispatcher("./views/modules/category_master/index.jsp").forward(request, response);
 			}else {
 				response.sendRedirect("./error.jsp");
 			}
-		
-			/*for(CategoryMaster categoryList:categoryLists) {
-				System.out.println(categoryList.getC_name());
-			}*/
-		} catch (Exception e) {
+			
+		} catch (Exception e){
 			System.out.println(e);
 		}
-		
+			
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("from here");
 		String result = "";
 		try {

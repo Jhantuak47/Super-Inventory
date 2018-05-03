@@ -8,7 +8,16 @@ public class BrandMaster {
 	private Timestamp created_at;
 	private Timestamp updated_at;
 	private int status = 0;
+	private int is_deleted;
 	
+	
+	
+	public int getIs_deleted() {
+		return is_deleted;
+	}
+	public void setIs_deleted(int is_deleted) {
+		this.is_deleted = is_deleted;
+	}
 	public int getId() {
 		return id;
 	}
@@ -41,6 +50,8 @@ public class BrandMaster {
 	}
 	@Override
 	public String toString() {
-		return "BrandMaster [name=" + name + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+		return "BrandMaster [id=" + id + ", name=" + name + ", created_at=" + created_at + ", updated_at=" + updated_at
+				+ ", status=" + status + ", is_deleted=" + is_deleted + "]";
 	}
+	
 }

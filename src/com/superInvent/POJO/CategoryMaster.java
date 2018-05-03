@@ -3,8 +3,17 @@ package com.superInvent.POJO;
 public class CategoryMaster {
 	private int id;
 	private String c_name;
-	private int parentCategory;
-	private boolean c_status;
+	private String parentCategory;
+	private int parent_id;
+	private int c_status;
+	
+	
+	public int getParent_id() {
+		return parent_id;
+	}
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -17,16 +26,16 @@ public class CategoryMaster {
 	public void setC_name(String c_name) {
 		this.c_name = c_name;
 	}
-	public int getParentCategory() {
+	public String getParentCategory() {
 		return parentCategory;
 	}
-	public void setParentCategory(int parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setParentCategory(String string) {
+		this.parentCategory = string;
 	}
-	public boolean isC_status() {
+	public int getC_status() {
 		return c_status;
 	}
-	public void setC_status(boolean c_status) {
+	public void setC_status(int c_status) {
 		this.c_status = c_status;
 	}
 	@Override

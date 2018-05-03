@@ -2,6 +2,8 @@ package com.superInvent.controllers.authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +24,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email  = request.getParameter("login_email");
 		String pass = request.getParameter("login_password");
-		
+		 Date dt = new Date();  
+         SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy, hh:mm");
 		Users user = new LoginRegistrationDAO().getUserDetails(pass, email);
 			if(user != null && user instanceof Users) {
 				HttpSession session = request.getSession();
@@ -30,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("email", user.getEmail());
 				session.setAttribute("is_admin", user.getIs_admin());
 				session.setAttribute("mobile", user.getMobile());
-				session.setAttribute("last_login", user.getLast_login());
+				session.setAttribute("last_login", formatter.format(user.getLast_login()));
 				session.setAttribute("createdAt", user.getCreatedAt());
 				//updating login time..
 				new LoginRegistrationDAO().updateLastLogin(email);

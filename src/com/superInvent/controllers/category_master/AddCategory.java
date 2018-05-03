@@ -17,7 +17,7 @@ import com.superInvent.DAO.CategoryDAO;
 @WebServlet("/add_category")
 public class AddCategory extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response){
 		
 		try {
 			request.setAttribute("allCategories", new CategoryDAO().getAllCategories());
@@ -29,16 +29,16 @@ public class AddCategory extends HttpServlet {
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response){
 		try {
 			String cat_name = request.getParameter("cat_name");
 			int parent_cat =Integer.parseInt(request.getParameter("parent_cat")) ;
-			System.out.println("above status");
-			int status = (request.getParameter("status") == "") ? 0 : 1 ;
+			System.out.println("status = "+request.getParameter("status"));
+			int status = (request.getParameter("status") == null) ? 0 : 1 ;
 			String message = new CategoryDAO().addCategory(cat_name, parent_cat, status);
 			new PrintWriter(response.getWriter()).print(message);
 		} catch (Exception e) {
-			new PrintWriter(response.getWriter()).print("fail");
+			System.out.println("error from doPost AddCategory");
 		}
 		
 	}

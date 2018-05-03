@@ -28,7 +28,7 @@
 	                     </div>
 	                     <div class="col-md-4" style="">
 	                     <button style="margin-left:60px;display:none;font-size:16px;" id="delete-row" class="btn-danger" onclick="delete_modal();"><i class='fa fa-trash-o'></i>&nbsp;Delete</button><!--delete button -->
-	                     <a onclick = "add();" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add</a>
+	                     <a href = "#" onclick = "add();" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add</a>
 	                     </div>
                     </div><!--row end -->
                     <div class="clearfix"></div>
@@ -39,113 +39,48 @@
                         <thead>
                           <tr>
                             <th><input type="checkbox"  onclick = "head_checkbox_on_click()" id="headchek"></th>
+                            <th>#</th>
                             <th>Category</th>
                             <th>Type</th>
-                            <th colspan="2"></th>
+                            <th style = "text-align:center;">Status</th>
+                            <th colspan="2" style = "text-align:center;padding-left:130px;" >Action</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id = "cat_table">
                            <% 
                             List<CategoryMaster> categoryLists =  new ArrayList<CategoryMaster>();
   									categoryLists = (List<CategoryMaster>)request.getAttribute("categoryLists");
+  									 int page_no = (Integer)request.getAttribute("page_no");
+  									int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
+  									 int i = ( (page_no - 1) * numberOfResultPerPage ) + 1;
 	                           for(CategoryMaster List:categoryLists){%>
 		               				
                                 <tr id="<%= List.getId() %>">
                                     <td><input type="checkbox"  onclick = "checkbox_on_click()" name="record"></td>
+                                    <td><%= i %></td>
                                     <td><%= List.getC_name() %></td>
-                                    <td><%= List.getParentCategory() %></td>
-                                    <td><a onclick="edit('<%=List.getId() %>', '<%=List.getC_name()%>', '<%=List.getParentCategory()%>', '<%=List.isC_status() %>');"  class="btn btn-primary btn-sm active pull-right" style="margin-left:100px"><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a></td>
+                                    <td><% if(List.getParentCategory() == null){%>root<%}else{ out.print(List.getParentCategory()); } %></td>
                                     <td>
-                                        <%if(List.isC_status()){ %>
-                                        <a  onclick="deactivate();" class="btn btn-danger btn-sm pull-right" style="margin-right:10px">Deactivate</a>
+                                        <%if(List.getC_status() == 1){ %>
+                                        <a href = "#" onclick="Update_category_status(<%=List.getId() %>, <%= page_no %>,<%= List.getC_status() %> );" class="btn btn-danger btn-sm pull-right" style="margin-right:10px;">Deactivate</a>
                                         <%}else{%>
-                                        <a onclick="activate();"  class="btn btn-success btn-sm pull-right" style="margin-right:10px">Activate</a>
+                                        <a href = "#" onclick="Update_category_status(<%=List.getId() %>, <%= page_no %>, <%= List.getC_status() %> );"  class="btn btn-success btn-sm pull-right" style="margin-right:10px;">Activate</a>
                                      	<%}%>
                                      </td>
+                                    <td><a onclick="edit('<%=List.getId() %>', '<%=List.getC_name()%>', '<%=List.getParent_id()%>',<%= page_no %>, '<%=List.getC_status() %>');"  class="btn btn-primary btn-sm active pull-right" style="margin-left:100px"><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit</a></td>
+                                    <td><a class = "btn btn-danger active btn-sm" onclick = "delete_modal('<%= List.getId() %>', '<%= List.getC_name() %>', <%= page_no %>);">Delete</a></td>
                                 </tr>
-                              <%}%>
+                              <%i++; }%>
                         </tbody>
                     </table>
                 </div><!--pannel body -->
                 <div class="card-footer" id="pannel_footer">
-                           
+                   <div align="center" id = "footer"> <%= request.getAttribute("pagination") %> </div> 
                 </div>
     </div><!--end of row  -->	
   </div> <!-- end of container -->
-  <!-- Edit Modal -->
-  	
-<button type="button" id = "editCategory" class="btn btn-primary hidden" data-toggle="modal" data-target="#editCategoryModal">
-</button>
-<div id="editCategoryModal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-	        <div class="modal-body">
-	        	<div class="card">
-					 <h5 class="card-header">Edit Category</h5>
-	                <div class="card-body">
-	                    <form class="form-horizontal" method="POST" action="" id = "edit_category_form">
-	
-	                        <div class="form-group">
-	                            <label for="email" class="col-md-4 control-label">Category Name :</label>
-	
-	                            <div class="col-md-6">
-	                                <input list="Category" id="edit_name" class="form-control" name="edit_name" required autofocus>
-									<datalist id="Category">
-										<option value="Software ">
-										<option value="Clothing">
-										<option value="Electronics">
-										<option value="Medicine">
-										<option value="Game">
-										<option value="Electronics">
-										<option value="Medicine">
-										<option value="Game">
-									</datalist>
-								</div>
-	                        </div>
-							<input type="hidden" id = "cat_id">
-	                        <div class="form-group">
-	                            <label class="col-md-4 control-label">Category Type :</label>
-	
-	                            <div class="col-md-6">
-	                            	<select class="custom-select" id = "edit_type">
-									  <option selected>--select type</option>
-									  <option value="0">root</option>
-							<%for(CategoryMaster List:categoryLists){%>
-										<option value="<%=List.getId()%>"><%=List.getC_name() %></option>
-							<%}%>
-									</select>
-	                                    <span class="help-block">
-	                                        <strong id = "login_pass_error"></strong>
-	                                    </span>
-	                            </div>
-	                        </div>
-	
-	                        <div class="form-group">
-	                        	<label class="col-md-3 control-label">Category Status :</label>
-	                        		<input id = "is_active" type="checkbox" name="remember"> &nbsp;Is Active ..?
-	                        </div>
-	
-	                        <div class="form-group">
-	                            <div class="col-md-8 col-md-offset-4">
-	                                <button type="submit" class="btn btn-success">
-	                                    <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Edit
-	                                </button>
-	
-	                                <a class="btn btn-link" href="{{ route('password.request') }}">
-	                                    Forgot Your Password?
-	                                </a>
-	                            </div>
-	                        </div>
-	                    </form>
-	                </div><!--end of card body  -->
-           		 </div><!--end of card  -->
-	        </div>
-	        <div class="modal-footer">
-       			 	<button type="button" class="btn btn-danger float-left" data-dismiss="modal">Close</button>
-      		</div>
-		</div>
-	</div>
-</div>
-  <!-- End edit modal  -->
+  <jsp:include page="<%=\"templets/edit.jsp\"%>"/>
+  <jsp:include page="<%=\"templets/add_cat.jsp\"%>"/>
+  <jsp:include page="<%=\"templets/delete.jsp\"%>"/>
   <script type="text/javascript" src="./views/modules/category_master/js/main.js"></script>
 <jsp:include page="<%=\"/views/inc/footer.jsp\"%>"/>

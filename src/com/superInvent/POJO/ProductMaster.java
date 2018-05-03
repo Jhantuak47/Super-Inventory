@@ -6,7 +6,9 @@ public class ProductMaster {
 	private int id;
 	private String p_name;
 	private int brand_id;
+	private String brand;
 	private int category_master_id;
+	private String category;
 	private double price;
 	private int qty;
 	private Timestamp added_date;
@@ -16,6 +18,27 @@ public class ProductMaster {
 	private String expiry_date;
 	private String batch_no;
 	private String desc;
+	private int is_deleted;
+	
+	
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public int getIs_deleted() {
+		return is_deleted;
+	}
+	public void setIs_deleted(int is_deleted) {
+		this.is_deleted = is_deleted;
+	}
 	public int getId() {
 		return id;
 	}
@@ -96,9 +119,11 @@ public class ProductMaster {
 	}
 	@Override
 	public String toString() {
-		return "ProductMaster [id=" + id + ", p_name=" + p_name + ", brand_id=" + brand_id + ", category_master_id="
-				+ category_master_id + ", price=" + price + ", qty=" + qty + ", added_date=" + added_date + ", status="
-				+ status + ", p_type=" + p_type + ", weight=" + weight + ", expiry_date=" + expiry_date + ", batch_no="
-				+ batch_no + ", desc=" + desc + "]";
+		return "ProductMaster [id=" + id + ", p_name=" + p_name + ", brand_id=" + brand_id + ", brand=" + brand
+				+ ", category_master_id=" + category_master_id + ", category=" + category + ", price=" + price
+				+ ", qty=" + qty + ", added_date=" + added_date + ", status=" + status + ", p_type=" + p_type
+				+ ", weight=" + weight + ", expiry_date=" + expiry_date + ", batch_no=" + batch_no + ", desc=" + desc
+				+ ", is_deleted=" + is_deleted + "]";
 	}
+	
 }

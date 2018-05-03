@@ -15,7 +15,7 @@ import com.superInvent.Services.brand_master.BrandMaster;
 /**
  * Servlet implementation class GetBrand
  */
-@WebServlet(description = "listing all brands", urlPatterns = { "/list_brand" })
+@WebServlet(description = "listing all brands", urlPatterns = { "/get_brand" })
 public class GetBrand extends HttpServlet {
 	String result ="";
 	//list user only name and id..

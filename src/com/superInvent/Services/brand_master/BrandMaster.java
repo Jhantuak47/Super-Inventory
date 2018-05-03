@@ -1,4 +1,6 @@
 package com.superInvent.Services.brand_master;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrandMaster {
@@ -9,4 +11,10 @@ public class BrandMaster {
 		}
 		return result;
 	}
+	
+	public String buildBrandsTable(ResultSet rs) {
+		return "";
+	}
+	
+	
 }

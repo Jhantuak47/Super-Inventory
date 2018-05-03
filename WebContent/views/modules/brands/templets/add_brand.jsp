@@ -1,4 +1,4 @@
-
+<button type="submit" class="btn btn-success d-none" id = "add_brand_button" data-toggle="modal" data-target="#addBrand"></button>
 <div id="addBrand" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">

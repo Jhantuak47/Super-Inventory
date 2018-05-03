@@ -8,7 +8,7 @@
 			    <h4 class="card-title">Profile info</h4>
 			    <p class="card-text"><i class = "fa fa-user"></i>&nbsp;<%=session.getAttribute("name") %></p>
 			    <p class="card-text"><i class = "fa fa-user"></i>&nbsp;<%if(session.getAttribute("is_admin").equals(true)){%> Admin <%}else %> User </p>
-			    <p class="card-text"><i class = "fa fa-clock-o"></i>&nbsp;Last Login : <%= session.getAttribute("last_login") %></p>
+			    <p class="card-text"><i class = "fa fa-clock-o"></i>&nbsp;Last Login :<br> <%= session.getAttribute("last_login") %> am</p>
 			    <a href="#" class="btn btn-primary"><i class = "fa fa-edit"></i>&nbsp;Edit Profile</a>
 			  </div>
 		  </div>
@@ -17,6 +17,6 @@
   </div>
 <jsp:include page="<%=\"modules/product_master/templets/add_product.jsp\"%>"/>
 <jsp:include page="<%=\"modules/brands/templets/add_brand.jsp\"%>"/>
+<jsp:include page="<%=\"modules/category_master/templets/add_cat.jsp\"%>"/>
 <jsp:include page="<%=\"inc/footer.jsp\"%>"/>
-<script type="text/javascript" src="./modules/brands/js/main.js"></script>
-<script type="text/javascript" src="./modules/product_master/js/main.js"></script>
+<script type="text/javascript" src="js/main.js"></script>

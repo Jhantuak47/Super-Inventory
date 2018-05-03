@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.superInvent.DAO.BrandDAO;
 
-@WebServlet(description = "add and list brands", urlPatterns = { "/brand_master" })
-public class BrandMaster extends HttpServlet {
+@WebServlet(description = "add and list brands", urlPatterns = { "/add_brands" })
+public class AddBrand extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
