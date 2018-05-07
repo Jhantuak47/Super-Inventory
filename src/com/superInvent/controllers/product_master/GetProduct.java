@@ -21,7 +21,6 @@ public class GetProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response){
-		System.out.println(request.getParameter("id"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		try {
 			Gson json = new Gson();
@@ -30,6 +29,7 @@ public class GetProduct extends HttpServlet {
 			
 			new PrintWriter(response.getWriter()).print(result);
 		} catch (Exception e) {
+			System.out.println("error from getproduct servlet");
 			System.out.println(e);
 		}
 	}

@@ -39,7 +39,7 @@
 								
 								</tbody>
 							</table>
-							<a href = "#" id = "add" class = "pull-right" style = "padding:10px;"><i class = "fa fa-plus"></i>&nbsp;add more items</a>   <a href="#" id = "remove" class = "pull-right" style = "padding:10px" ><i class = "fa fa-trash"></i>&nbsp;remove item</a>
+							<a href = "" id = "add" class = "pull-right" style = "padding:10px;"><i class = "fa fa-plus"></i>&nbsp;add more items</a>   <a href="" id = "remove" class = "pull-right" style = "padding:10px" ><i class = "fa fa-trash"></i>&nbsp;remove item</a>
 						</div><!-- order list card body ends -->
 					</div><!--order list card ends -->
 					<p></p>

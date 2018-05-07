@@ -15,10 +15,8 @@ import com.superInvent.DAO.OrderDAO;
 public class InvoiceItem extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int row_num = (request.getParameter("row_num") != "" ) ? Integer.parseInt(request.getParameter("row_num")) : 0 ;
-		System.out.println("row" + row_num);
 		try {
-			new PrintWriter(response.getWriter()).print( new OrderDAO().getRowItem(row_num));
+			new PrintWriter(response.getWriter()).print( new OrderDAO().getRowItem());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
