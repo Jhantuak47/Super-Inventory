@@ -34,11 +34,12 @@ public class AddProduct extends HttpServlet {
 				product.setBrand_id(Integer.parseInt(request.getParameter("p_brand")));
 				product.setBatch_no(request.getParameter("p_batch"));
 				product.setPrice(Double.parseDouble(request.getParameter("p_price")));
-				product.setQty(Integer.parseInt(request.getParameter("p_quantity")));
+				product.setStock(Integer.parseInt(request.getParameter("p_quantity")));
 				product.setWeight(Double.parseDouble(request.getParameter("p_weight")));
 				product.setDesc(request.getParameter("p_desc"));
 				product.setP_type(request.getParameter("p_type"));
 				product.setStatus(1);
+				product.setIs_deleted(0);
 				
 				new PrintWriter(response.getWriter()).print( new ProductDAO().insert(product));
 		} catch (Exception e) {

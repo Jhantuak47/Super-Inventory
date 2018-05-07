@@ -1,4 +1,4 @@
-package com.superInvent.Services.category_master;
+package com.superInvent.Services.brand_master;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

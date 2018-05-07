@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.superInvent.DAO.Pagination;
 import com.superInvent.POJO.BrandMaster;
 import com.superInvent.POJO.Demo;
-import com.superInvent.Services.category_master.BrandServices;
+import com.superInvent.Services.brand_master.BrandServices;
 
 /**
  * Servlet implementation class ListBrandPagination

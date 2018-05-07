@@ -1,21 +1,18 @@
 package com.superInvent.controllers.product_master;
-
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.superInvent.DAO.Pagination;
-import com.superInvent.POJO.BrandMaster;
+import com.superInvent.POJO.Demo;
 import com.superInvent.POJO.ProductMaster;
+import com.superInvent.Services.product_master.ProductServices;
 
 /**
  * Servlet implementation class GetProduct
@@ -40,10 +37,10 @@ public class ListProduct extends HttpServlet {
 					product.setBrand(rs.getString("brand"));
 					product.setCategory(rs.getString("category"));
 					product.setPrice(rs.getDouble("price"));
-					product.setQty(rs.getInt("qty"));
+					product.setStock(rs.getInt("stock"));
 					product.setAdded_date(rs.getTimestamp("added_on"));
 					product.setStatus(rs.getInt("state"));
-					product.setWeight(rs.getDouble("wg"));
+					product.setWeight(rs.getDouble("wt"));
 					product.setP_type(rs.getString("type"));
 					product.setExpiry_date(rs.getString("exp_date"));
 					product.setBatch_no(rs.getString("batch_no"));
@@ -62,9 +59,41 @@ public class ListProduct extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		String tbody = "fail";
+		Gson gson = new Gson();
+		int currentPage =( request.getParameter("page_no") == null ) ? 1 : Integer.parseInt(request.getParameter("page_no"));
+		int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
+		String link = "list_product";
+		
+		 try {
+				//calling to pagination class list with pagination method,,
+				Object[] objects = new Pagination().listWithPagination("products", currentPage, numberOfResultPerPage, link);
+				
+				ResultSet rs = (ResultSet) objects[0];
+				String pagination = (String) objects[1];
+				
+				//check if result set is not empty..
+				if(rs !=  null && rs.isBeforeFirst()) {
+				    tbody = new ProductServices().buieldProductsTable(rs, currentPage, numberOfResultPerPage);
+				    if(tbody != null) {
+				    	Demo obj = new Demo();
+						obj.setPaginations(pagination);
+						obj.setTbody(tbody);
+						String jsonResult = gson.toJson(obj);
+						new PrintWriter(response.getWriter()).print(jsonResult);
+				    	
+				    }else {
+				    	new PrintWriter(response.getWriter()).print(tbody);
+				    }
+				}else {
+					tbody = "empty table";
+					new PrintWriter(response.getWriter()).print(tbody);
+				}
+		} catch (Exception e) {
+			System.out.println("error form doPost() ListBrandPag..");
+			System.out.println(e);
+		}
 	}
 
 }

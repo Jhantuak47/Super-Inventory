@@ -62,7 +62,6 @@ public class Pagination extends JDBCConnection{
 			String sql = "";
 			try {
 				objects = this.pagination(table, currentPage, numberOFRecordsPerPage, link);
-
 				//listing categories..
 				if(table.equals("category_master")) {
 					sql = "SELECT * FROM ("
@@ -75,10 +74,12 @@ public class Pagination extends JDBCConnection{
 					 							 +"ORDER BY id DESC "
 					 							 + objects[1];
 				}else if(table.equals("products")){
-					sql = "SELECT * FROM(SELECT p.id, p.p_name as name, b.b_name brand, c.c_name category, p.price as price, p.quantity as qty, "
-							+ "p.added_date added_on, p.status state,wg, type, exp_date, batch_no, Description as dsc, p.is_deleted from products p "
+					sql = "SELECT * FROM(SELECT p.id, p.p_name as name, b.b_name brand, c.c_name category, p.price as price, p.avl_stock as stock, "
+							+ "p.added_date added_on, p.status state,wt, type, exp_date, batch_no, Description as dsc, p.is_deleted from products p "
 							+ "LEFT JOIN brand b ON p.brand_id = b.id LEFT JOIN category_master c on p.category_master_id = c.id) as temp"
-							+ " WHERE is_deleted != 1";
+							+ " WHERE is_deleted != 1 "
+							 +"ORDER BY id DESC "
+							 + objects[1];
 				}else {
 					//listing for other tables..
 					 sql = "SELECT * from " + table +" where is_deleted != 1 ORDER BY `id` DESC "+ objects[1];

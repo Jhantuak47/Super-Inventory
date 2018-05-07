@@ -13,8 +13,9 @@
 			  </div>
 		  </div>
 	  </div>
-		<jsp:include page="<%=\"layouts/admin_jumbotron.jsp\"%>"/>
+		<jsp:include page="<%=\"layouts/admin_jumbotron.jsp\"%>"/>		
   </div>
+  <jsp:include page="<%=\"layouts/admin_modules.jsp\"%>"/>
 <jsp:include page="<%=\"modules/product_master/templets/add_product.jsp\"%>"/>
 <jsp:include page="<%=\"modules/brands/templets/add_brand.jsp\"%>"/>
 <jsp:include page="<%=\"modules/category_master/templets/add_cat.jsp\"%>"/>

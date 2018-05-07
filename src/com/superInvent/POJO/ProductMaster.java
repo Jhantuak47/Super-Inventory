@@ -10,7 +10,7 @@ public class ProductMaster {
 	private int category_master_id;
 	private String category;
 	private double price;
-	private int qty;
+	private int stock;
 	private Timestamp added_date;
 	private int status;
 	private String p_type;
@@ -21,6 +21,12 @@ public class ProductMaster {
 	private int is_deleted;
 	
 	
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	public String getBrand() {
 		return brand;
 	}
@@ -69,12 +75,6 @@ public class ProductMaster {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
 	public Timestamp getAdded_date() {
 		return added_date;
 	}
@@ -121,9 +121,10 @@ public class ProductMaster {
 	public String toString() {
 		return "ProductMaster [id=" + id + ", p_name=" + p_name + ", brand_id=" + brand_id + ", brand=" + brand
 				+ ", category_master_id=" + category_master_id + ", category=" + category + ", price=" + price
-				+ ", qty=" + qty + ", added_date=" + added_date + ", status=" + status + ", p_type=" + p_type
+				+ ", stock=" + stock + ", added_date=" + added_date + ", status=" + status + ", p_type=" + p_type
 				+ ", weight=" + weight + ", expiry_date=" + expiry_date + ", batch_no=" + batch_no + ", desc=" + desc
 				+ ", is_deleted=" + is_deleted + "]";
 	}
+
 	
 }
