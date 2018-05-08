@@ -1,24 +1,24 @@
- <% if(session.getAttribute("name") == null) response.sendRedirect("./"); %>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
+<% if(session.getAttribute("name") == null) response.sendRedirect("./"); %>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
 <div class="row">
-
+	<% SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy, hh:mm"); %>
 	<div class="col-md-10 mx-auto">
 		<div class="card" style = "box-shadow:0 0 25px 0 lightgrey;">
 			<div class="card-header"><h5>New Orders</h5></div>
 			<div class="card-body">
-				<form>
+				<form id = "order_form_data" onsubmit = "return false">
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Order Date</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control-sm" name = "" id = "" readonly value = "37485">
+							<input type = "text" class = "form-control form-control-sm" name = "order_date" id = "order_date" readonly value = "<%= formatter.format(new Date()) %>" >
 						</div>
 					</div>
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Customer Name*</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control" name = "" id = "" placeholder="Enter customer name" required="required"/>
+							<input type = "text" class = "form-control form-control-sm" name = "cust_name" id = "cust_name" placeholder="Enter customer name" required="required"/>
 						</div>
 					</div>
 					<div class = "card" style = "box-shadow:0 0 15px 0 lightgrey;">
@@ -46,13 +46,13 @@
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Sub Total</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control form-control-sm" name = "sub_total" id = "sub_total" required="required"/>
+							<input type = "text" class = "form-control form-control-sm" name = "sub_total" id = "sub_total" readonly="readonly"/>
 						</div>
 					</div>
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">GST(18%)</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control form-control-sm" name = "gst" id = "gst" required="required"/>
+							<input type = "text" class = "form-control form-control-sm" name = "gst" id = "gst" readonly="readonly"/>
 						</div>
 					</div>
 					<div class = "form-group row">
@@ -64,7 +64,7 @@
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Net Total</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control form-control-sm" name = "net_tot" id = "net_tot" required="required"/>
+							<input type = "text" class = "form-control form-control-sm" name = "net_tot" id = "net_tot" readonly="readonly"/>
 						</div>
 					</div>
 					<div class = "form-group row">
@@ -76,7 +76,7 @@
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Due</label>
 						<div class = "col-sm-6">
-							<input type = "text" class = "form-control form-control-sm" name = "due" id = "due" required="required"/>
+							<input type = "text" class = "form-control form-control-sm" name = "due" id = "due" readonly="readonly"/>
 						</div>
 					</div>
 					<div class = "form-group row">
@@ -91,7 +91,7 @@
 						</div>
 					</div>
 					<div align="center">
-						<input type="submit" id = "order_form_btn" style = "width:150px;" class = "btn btn-info" value = "Order">
+						<input type="submit" id = "order_form_btn" style = "width:150px;" onclick = "feedInvoiceInDB(event);" class = "btn btn-info" value = "Order">
 						<input type="submit" id = "Print_invoice" style = "width:150px;" class = "btn btn-success d-none" value = "Print Invoice">
 					</div>
 				</form>

@@ -37,9 +37,9 @@ public class JDBCConnection {
 		
 		return rs;
 	}
-	protected void executeUpdate(String query) throws SQLException {
+	protected int executeUpdate(String query) throws SQLException {
 		st = con.createStatement();
-	      st.executeUpdate(query);
+	     return  st.executeUpdate(query);
 	}
 
 }

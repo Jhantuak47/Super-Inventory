@@ -108,7 +108,43 @@
     		var discount = $("#discount").val();
     		calculate(discount, paid_amt);
     	});
-    	
-    	
+
     });
+ 
+ var domain = "http://localhost:8082/superInvent";
+	//feed data into database...
+	function feedInvoiceInDB(e){
+		e.preventDefault();
+		console.log('form feed');
+		var formData = $("#order_form_data").serialize();
+		console.log("form data = "+ formData);
+		
+		$.ajax({
+			url				:		domain + "/insert_invoice",
+			type			:		"POST",
+			data			:		formData,
+			beforeSend		:   	function(){$('.loadingDiv').show();},
+			success		: 	function(data) {
+				 
+					console.log(data);
+					if(data ==  "success"){
+						alert("Successfully Ordered Created !");
+						location.reload(true);
+					}else if(data == "QUANTITY_EXCEED"){
+						showErrorMsg("sorry ! quantity exceed , we have limited stock !!");
+					}else
+						window.location.href = domain + '/error.php';
+					
+					
+					$('.loadingDiv').hide();
+		     }
+		});	
+	}
+
+//error message..
+function showErrorMsg(message){
+	 $('#error_alert').show();
+	 $('#success_alert').hide();
+    $('#errorMessage').html(message);    
+}
 
