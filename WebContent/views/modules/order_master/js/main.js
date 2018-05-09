@@ -92,21 +92,31 @@
     		due = net_tot - paid_amount;
     		$("#sub_total").val(tot_amt);
     		$("#gst").val(gst);
-    		$("#net_tot").val(net_tot);
+    		$("#net_tot").val(Math.ceil(net_tot));
     		$("#due").val(Math.ceil(due));
     		$("#discount").val(discount);
     	}
     	
     	//calculating discount
     	$("#discount").keyup(function(){
+    		var disc = $("#discount").val();
+    		if( isNaN(disc) || disc > ( ($('#gst').val() * 1) + ($('#sub_total').val() * 1) )  ){
+    			alert("Please give valid discount");
+    			calculate(0, $("#paid").val());
+    		}else
     		calculate($(this).val(), $("#paid").val());
     	})
     	
     	//calculating paid and due..
     	$("#paid").keyup(function(){
-    		var paid_amt  = $(this).val();
+    		var paid_amt  = $(this);
+    		if( isNaN(paid_amt.val()) || paid_amt.val() > ($("#net_tot").val()-0 + 1)){
+    			alert("Please give valid  Payment Amount !");
+    			paid_amt.val(0);
+    			calculate($("#discount").val(), 0);
+    		}
     		var discount = $("#discount").val();
-    		calculate(discount, paid_amt);
+    		calculate(discount, paid_amt.val());
     	});
 
     });
@@ -115,30 +125,49 @@
 	//feed data into database...
 	function feedInvoiceInDB(e){
 		e.preventDefault();
-		console.log('form feed');
+		var discount = $("#discount").val();
+		var paid = $("#paid").val();
 		var formData = $("#order_form_data").serialize();
-		console.log("form data = "+ formData);
+		if( $("#cust_name").val() == "" || !isNaN($("#cust_name").val()) ){
+			alert("Please enter a Valid Customer Name");
+		}else
+			if(discount != "" && paid != "" && discount >= 0 && paid > 0){
+				$.ajax({
+					url				:		domain + "/insert_invoice",
+					type			:		"POST",
+					data			:		formData,
+					beforeSend		:   	function(){$('.loadingDiv').show();},
+					success		: 	function(data) {
+						 
+							console.log(data);
+							if(data ==  "success"){
+								alert("Successfully Ordered Created !");
+								if(confirm("Do you want to print invoice ?")){
+									$("#order_form_data").trigger("reset");
+									$(".amt").each(function(){
+										$(this).text(0);
+						    		});
+									window.location.href = domain + '/print_invoice?' + formData;
+								}else{
+									$(".amt").each(function(){
+										$(this).text(0);
+						    		});
+									$("#order_form_data").trigger("reset");
+								}
+									
+							}else if(data == "QUANTITY_EXCEED"){
+								showErrorMsg("sorry ! quantity exceed , we have limited stock !!");
+							}else
+								window.location.href = domain + '/error.php';
+							
+							
+							$('.loadingDiv').hide();
+				     }
+				});
+			}else{
+				alert("Please enter valid paid amount and discount !");
+			}
 		
-		$.ajax({
-			url				:		domain + "/insert_invoice",
-			type			:		"POST",
-			data			:		formData,
-			beforeSend		:   	function(){$('.loadingDiv').show();},
-			success		: 	function(data) {
-				 
-					console.log(data);
-					if(data ==  "success"){
-						alert("Successfully Ordered Created !");
-						location.reload(true);
-					}else if(data == "QUANTITY_EXCEED"){
-						showErrorMsg("sorry ! quantity exceed , we have limited stock !!");
-					}else
-						window.location.href = domain + '/error.php';
-					
-					
-					$('.loadingDiv').hide();
-		     }
-		});	
 	}
 
 //error message..

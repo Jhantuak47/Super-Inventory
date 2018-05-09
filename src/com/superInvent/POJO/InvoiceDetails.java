@@ -10,6 +10,15 @@ public class InvoiceDetails{
 	private double[] product_price;
 	private int[] qty;
 	private int[] tqty;
+	private String[] pro_name;
+	
+	
+	public String[] getPro_name() {
+		return pro_name;
+	}
+	public void setPro_name(String[] pro_name) {
+		this.pro_name = pro_name;
+	}
 	public int getId() {
 		return id;
 	}
@@ -50,11 +59,10 @@ public class InvoiceDetails{
 	@Override
 	public String toString() {
 		return "InvoiceDetails [id=" + id + ", invoice_no=" + invoice_no + ", product_id=" + Arrays.toString(product_id)
-				+ ", product_price=" + Arrays.toString(product_price) + ", qty=" + Arrays.toString(qty) + ", getId()="
-				+ getId() + ", getInvoice_no()=" + getInvoice_no() + ", getProduct_id()="
-				+ Arrays.toString(getProduct_id()) + ", getProduct_price()=" + Arrays.toString(getProduct_price())
-				+ ", getQty()=" + Arrays.toString(getQty()) + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", product_price=" + Arrays.toString(product_price) + ", qty=" + Arrays.toString(qty) + ", tqty="
+				+ Arrays.toString(tqty) + ", pro_name=" + Arrays.toString(pro_name) + "]";
 	}
+	
+	
 	
 }

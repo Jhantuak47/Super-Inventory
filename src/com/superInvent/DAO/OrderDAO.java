@@ -33,9 +33,9 @@ public class OrderDAO extends JDBCConnection {
 							"<td><input name=\"qty[]\" type=\"text\" " + 
 							"class=\"form-control form-control-sm qty\" required=\"required\"></td> " + 
 							"<td><input name=\"price[]\" type=\"text\" " +
-							"class=\"form-control form-control-sm price\" readonly=\"readonly\"></td> " + 
+							"class=\"form-control form-control-sm price\" readonly=\"readonly\"></span> " + 
 							"<span><input name=\"pro_name[]\" type=\"hidden\" " +
-							"class=\"form-control form-control-sm pro_name\"></span> " + 
+							"class=\"pro_name\"></td>" + 
 							"<td>Rs.<span class = 'amt'>0</td> " + 
 							"</tr>";
 				}
@@ -91,18 +91,25 @@ public class OrderDAO extends JDBCConnection {
 
 			String sql = "INSERT INTO `invoice_details`(`invoice_no`, `product_id`, `product_price`, `qty`) "
 						+ "VALUES (?,?,?,?)";
-				try {
+			/*	try {
 					PreparedStatement ps = con.prepareStatement(sql);
 					for(int i=0; i < invoicedetails.getProduct_id().length ; i++) {
 						
+						//System.out.println(invoicedetails.getTqty()[i]);
+						//System.out.println(invoicedetails.getQty()[i]);
+						
 						int remainQty =  ( invoicedetails.getTqty()[i] - invoicedetails.getQty()[i] );
+						
+//						System.out.println("reamining qty "+ invoicedetails.getProduct_id()[i] + "= " + remainQty );
+						
+						
 						if(invoicedetails.getQty()[i] > invoicedetails.getTqty()[i]) {
 							return "QUANTITY_EXCEED";
 						}else {
 							//updating stock of products table...
 							String updateQuery = "UPDATE products SET avl_stock = "+ remainQty + " WHERE id = " + invoicedetails.getProduct_id()[i];
 							
-							this.executeUpdate(updateQuery);
+							 this.executeUpdate(updateQuery);
 						
 						}
 						
@@ -110,14 +117,14 @@ public class OrderDAO extends JDBCConnection {
 						ps.setInt(2, invoicedetails.getProduct_id()[i]);
 						ps.setDouble(3, invoicedetails.getProduct_price()[i]);
 						ps.setDouble(4, invoicedetails.getQty()[i]);
-						System.out.println("number of affected rows = " + ps.executeUpdate());
+						ps.executeUpdate();
 					}
 				  con.close();
 				  ps.close();
 				} catch (Exception e) {
 					System.out.println("error form OrderDAO insertIntoInvoiceDetails()");
 					System.out.println(e);
-				}
+				}*/
 			return "success";
 		}
 }
