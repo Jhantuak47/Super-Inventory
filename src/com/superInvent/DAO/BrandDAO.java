@@ -125,7 +125,7 @@ public class BrandDAO extends JDBCConnection {
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 		      preparedStmt.setInt(1, id);
 		      
-		     boolean response =  preparedStmt.execute();
+		      preparedStmt.execute();
 		      
 		      con.close();				
 		} catch (Exception e) {
@@ -135,6 +135,37 @@ public class BrandDAO extends JDBCConnection {
 		}
 		
 		return "success";
+	}
+	
+	public String deleteMultiple(String[] ids) {
+		String idString = "";
+		for(String id : ids) {
+			if(isBrandHasProduct(Integer.parseInt(id))) {
+				return "hasProduct";
+			}
+		}
+		int i;
+		try {
+			for(i=0; i<ids.length-1; i++) {
+				idString += ids[i] + ", ";
+			}
+			idString += ids[i];
+			String query = "UPDATE `brand` SET is_deleted = 1 "
+							+ "where id in (" + idString + ");";
+			
+			int x = this.executeUpdate(query);
+			if(x > 0) {
+				return "success";
+			}
+		      
+		      con.close();				
+		} catch (Exception e) {
+			System.out.println("error brand dao, delet()");
+			System.out.println(e);
+			return "fail";
+		}
+		
+		return "fail";
 	}
 	
 	private boolean isBrandHasProduct(int brand_id) {

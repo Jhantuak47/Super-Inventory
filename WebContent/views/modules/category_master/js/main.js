@@ -142,6 +142,142 @@ function add_category(e){
 	}
 }
 
+//searching..
+$("#searchinput").keyup(function(){
+	 var searchValue = $("#searchinput").val();
+	 var searchType = "";
+	 var searchTable = "category_master";
+		 	
+	 	if(searchValue != ""){
+	 			$.ajax({
+				     type: "POST",
+				     url: './search',
+				     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+
+				     success: function(data) {
+				    	 console.log("data = " + data);
+				    	 if(data !=""){
+				    		 $("#cat_table").html(data);
+					    	 $("#footer").html(""); 
+				    	 }else{
+				    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+				    		 $("#cat_table").html(data);
+					    	
+				    	 }
+				    	 
+				     }
+				});
+	 	}else{
+	 		ListCategroyWithAjax(1);
+	 	}
+});
+//search function..
+function search(e){
+	 e.preventDefault();
+	 console.log("from search");	
+	 var searchValue = $("#searchinput").val();
+	 var searchType = "";
+	 var searchTable = "category_master";
+	 	if(searchValue != ""){
+	 		$.ajax({
+			     type: "POST",
+			     url: './search',
+			     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+			     beforeSend:   function(){$('.loadingDiv').show();},
+			     success: function(data) {
+			    	 console.log(data);
+			    	// alert(data);
+			    	 if(data !=""){
+			    		 $("#prod_tbl").html(data);
+				    	 $("#footer").html(""); 
+			    	 }else{
+			    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+			    		 $("#prod_tbl").html(data);
+			    	 }
+			     }
+			});
+	 		
+	 		$('.loadingDiv').hide();
+	 	}else{
+	 		ListCategroyWithAjax(1);
+	 	}
+	 
+}
+//head-check-box..
+function head_checkbox_on_click(){
+    var indicator = true;
+    
+   if($('#headchek').prop('checked') == true){
+        $("table tbody").find('input[name="record"]').each(function(){
+           //checked all un-checked check-box..
+            if(!$(this).is(":checked")){
+                    $(this).prop('checked',true);
+                }
+        });
+        $('#delete-row').show();
+    }
+    else
+      {
+        $("table tbody").find('input[name="record"]').each(function(){
+           //checked all un-checked check-box..
+            if($(this).is(":checked")){
+                    $(this).prop('checked',false);
+                }
+        });
+        $('#delete-row').hide(); 
+      }
+}
+//check boxes...
+function checkbox_on_click(){
+    var indicator = true;
+    var indicateHeadCheakBox = true;
+    $('#delete-row').show();
+    $("table tbody").find('input[name="record"]').each(function(){
+        if($(this).is(":checked")){
+                indicator = false;
+            }
+        if(!$(this).is(":checked")){
+             indicateHeadCheakBox = false;
+        }
+    });
+    if(indicator)
+      $('#delete-row').hide(); 
+    if(indicateHeadCheakBox)
+       $('#headchek').prop('checked',true);
+}
+function deleteCategoryOnCheck(){
+	 if(confirm('are you sure ? dlete checked category/categories !!')){
+            var array = [];
+              $("table tbody").find('input[name="record"]').each(function(){
+                  if($(this).is(":checked")){
+                      array.push($(this).parents("tr").attr("id"));
+                  }
+              });
+              $.ajax({
+				     type: "POST",
+				     url: './delete_cat',
+				     data: {ids:array, status : "multiple"},
+				     beforeSend:   function(){$('.loadingDiv').show();},
+				     success: function(data){
+				    	 console.log(data);
+				    	 if(data == "success"){
+				    		 alert("congrats ! Item deleted successfully !");
+				    		 $('#headchek').prop('checked', false);
+				    		 ListCategroyWithAjax(1);
+				    	 }else if(data === "hasProduct"){
+				        	 showErrorMsg("Sory some category have products, fail to delete !");
+				         }else if(data === "dependend"){
+				        	 $('#errorMessage').text("Sory some category is dependend, fail to delete !");
+				        	 $('#success_alert').hide();
+					        	$('#error_alert').show();
+				         }else{
+				    		console.log('error from else'); 
+				    	 }
+				    	 $('.loadingDiv').hide();
+				     }
+				});
+	 	}
+}
 //fetching all category..
 fetchAllCategory();
 function fetchAllCategory(){
@@ -176,7 +312,7 @@ function fetchAllCategory(){
 		$.ajax({
 		     type: "POST",
 		     url: './delete_cat',
-		     data: {id : id},
+		     data: {id : id, status : "single"},
 		     beforeSend:   function(){$('.loadingDiv').show();},
 		     success: function(data) {
 		    	 console.log(data);

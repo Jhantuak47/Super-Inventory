@@ -1,13 +1,15 @@
 //open add_product modal
 		function add_product_btn(){
-			removePAllExistValues();
+			console.log("from add btn");
+			removeAllExistValues();
+			$('#p_quantity').val(0);
 			$('#p_err').hide();
 			$("#add_product_button").click();
 		}
 
 		function add_product(e){
 			e.preventDefault();
-			if($("#p_name").val() == "" || $('#p_category').val() == "" || $('#p_brand').val() == "" ||$('#p_batch').val() == "" || $('#p_price').val() == "" || $('#p_quantity').val() == "" ||$('#p_weight').val() == ""){
+			if($("#p_name").val() == "" || $('#p_category').val() == "" || $('#p_brand').val() == "" ||$('#p_batch').val() == "" || $('#p_price').val() == "" || $('#cost_price').val() == "" ||$('#bill_no').val() == "" ||$('#ven_name').val() == ""){
 				$('#p_err').hide(); 
 				$('#p_errMsg').text("(*) mandatory field");
 		        $('#p_err').show();
@@ -23,8 +25,8 @@
 				    	 console.log(data);
 				         if(data === "success"){
 				        	 shwoSuccessMsg('successfully product is added');
-				        	 removePAllExistValues();
-				        	$('#add_product_close_btn').click();
+				        	 removeAllExistValues();
+				        	 ListProductWithAjax(1);
 				         }else if(data.indexOf('already exist !') != -1){
 				        	 $('#p_errMsg').text(data);
 					        	$('#p_err').show();
@@ -34,6 +36,7 @@
 				        	 $('#add_product_close_btn').click();
 				         }
 				         $('.loadingDiv').hide();
+				         $('#add_product_close_btn').click();
 				     }
 				});
 			}
@@ -172,19 +175,21 @@
 				});
 			}
 		 //removed values after inserting from all edit modal..
-		 function removePAllExistValues(){
+		 function removeAllExistValues(){
 			 $("#p_name").val("");
 				$('#p_category').val("");
 				$('#p_brand').val("");
 				$('#p_batch').val("");
 				$('#p_price').val("");
+				$('#cost_price').val("");
 				$('#p_quantity').val("");
-				$('#p_weight').val("");
 				$('#p_desc').val("");
 				$('#p_type').val("");
 				$('#p_exp').val("");
-				 $("#cat_name").val("");
-	        	 $('#parent_cat' ).val("");
+				$("#cat_name").val("");
+	        	$('#parent_cat' ).val("");
+	        	$('#ven_name').val("");
+	        	$('#bill_no').val("");
 
 		 }
 		 
@@ -262,3 +267,202 @@
 	    	 $('#success_alert').hide();
 	         $('#errorMessage').html(message);    
 		 }
+		 
+		 //search type on change
+		 $("#searchType").change(function(){
+			if($(this).val() == "expired"){
+				$("#searchinput").val($(this).val());
+				search();
+			}
+			if($(this).val() == ""){
+				$("#searchinput").val("");
+				ListProductWithAjax(1);
+			}
+		 });
+		 
+		 //searching..
+		 $("#searchinput").keyup(function(){
+			 var searchValue = $("#searchinput").val();
+			 var searchType = $("#searchType").val();
+			 var searchTable = "products";
+			 var indicator= 1;
+			 if(searchType == "price"){
+				 if(isNaN(searchValue)){
+					 alert('please enter a valid price !');
+					 $("#searchinput").val("");
+					 	indicator = 0;
+				 }
+					
+			 }
+			 if(searchType == "expired"){
+				 if(searchValue != "expired"){
+					 alert('you need to write expired !');
+					 $("#searchinput").val("expired");
+				 }
+			 }
+				 	
+			 	if(searchType != "" && searchValue != "" && indicator){
+			 		if(searchType != "expired"){
+			 			$.ajax({
+						     type: "POST",
+						     url: './search',
+						     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+						     beforeSend:   function(){$('.loadingDiv').show();},
+						     success: function(data) {
+						    	 console.log(data);
+						    	
+						    	 if(data !=""){
+						    		 $("#prod_tbl").html(data);
+							    	 $("#footer").html(""); 
+						    	 }else{
+						    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+						    		 $("#prod_tbl").html(data);
+							    	
+						    	 }
+						    	 $('.loadingDiv').hide();
+						     }
+						});
+			 		}
+			 		
+			 	}else if(searchType == ""){
+			 		alert("please select search type");
+			 		$("#searchinput").val("");
+			 	}else{
+			 		ListProductWithAjax(1);
+			 	}
+			 	
+		 });
+		 
+		 //search function..
+		 function search(e){
+			// e.preventDefault();
+			 console.log("from search");	
+			 var searchValue = $("#searchinput").val();
+			 var searchType = $("#searchType").val();
+			 var searchTable = "products";
+			 	if(searchType != "" && searchValue != ""){
+			 		$.ajax({
+					     type: "POST",
+					     url: './search',
+					     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+					     beforeSend:   function(){$('.loadingDiv').show();},
+					     success: function(data) {
+					    	 console.log(data);
+					    	// alert(data);
+					    	 if(data !=""){
+					    		 $("#prod_tbl").html(data);
+						    	 $("#footer").html(""); 
+					    	 }else{
+					    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+					    		 $("#prod_tbl").html(data);
+					    	 }
+					    	 
+					    	 $('.loadingDiv').hide();
+					     }
+					});
+			 	}else if(searchType == ""){
+			 		alert("please select search type");
+			 		$("#searchinput").val("");
+			 	}else{
+			 		ListProductWithAjax(1);
+			 	}
+			 
+		 }
+		 
+		 //head-check-box..
+	     function head_checkbox_on_click(){
+	         var indicator = true;
+	         
+	        if($('#headchek').prop('checked') == true){
+	             $("table tbody").find('input[name="record"]').each(function(){
+	                //checked all un-checked check-box..
+	                 if(!$(this).is(":checked")){
+	                         $(this).prop('checked',true);
+	                     }
+	             });
+	             $('#delete-row').show();
+	         }
+	         else
+	           {
+	             $("table tbody").find('input[name="record"]').each(function(){
+	                //checked all un-checked check-box..
+	                 if($(this).is(":checked")){
+	                         $(this).prop('checked',false);
+	                     }
+	             });
+	             $('#delete-row').hide(); 
+	           }
+	    }
+	     //check boxes...
+	     function checkbox_on_click(){
+	         var indicator = true;
+	         var indicateHeadCheakBox = true;
+	         $('#delete-row').show();
+	         $("table tbody").find('input[name="record"]').each(function(){
+	             if($(this).is(":checked")){
+	                     indicator = false;
+	                 }
+	             if(!$(this).is(":checked")){
+	                  indicateHeadCheakBox = false;
+	             }
+	         });
+	         if(indicator)
+	           $('#delete-row').hide(); 
+	         if(indicateHeadCheakBox)
+	            $('#headchek').prop('checked',true);
+	     }
+	     
+	     function deleteProductOnCheck(current_Page){
+	    	 if(confirm('are you sure ? dlete checked item/items !!')){
+
+		            var array = [];
+		              $("table tbody").find('input[name="record"]').each(function(){
+		                  if($(this).is(":checked")){
+		                      array.push($(this).parents("tr").attr("id"));
+		                  }
+		              });
+		              $.ajax({
+						     type: "POST",
+						     url: './delete_product',
+						     data: {id:array},
+						     beforeSend:   function(){$('.loadingDiv').show();},
+						     success: function(data){
+						    	 console.log(data);
+						    	 if(data == "success"){
+						    		 alert("congrats ! Item deleted successfully !");
+						    		 $('#headchek').prop('checked', false);
+						    		 ListProductWithAjax(current_Page);
+						    	 }else{
+						    		 
+						    	 }
+						    	 
+						    	 $('.loadingDiv').hide();
+						     }
+						});
+	    	 }
+	     }
+	     //view product
+	     function viewProduct(product_id){
+
+
+	    	 $.ajax({
+			     type: "POST",
+			     data: {id : product_id},
+			     url: './get_product',
+			     success: function(data) {
+			    	 console.log(data);
+			    	var result =  $.parseJSON(data);
+			    	$('#view_date').val(result.added_date);
+			    	$('#view_name').val(result.p_name);
+			    	$('#view_exp_dt').val(result.expiry_date);
+			    	$('#view_batch_no').val(result.batch_no);
+			    	$('#viewPrice').val(result.price);
+			    	$('#view_stock').val(result.stock);
+			    	$('#view_weight').val(result.weight);
+			    	$('#view_desc').val(result.desc);
+			    	$('#view_type').val(result.p_type);
+			    	 $("#view_product_button").click();
+			     }
+			});
+	    	 
+	     }

@@ -54,18 +54,28 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-4">
+									<label>Cost Price:</label> <span style="color: red;">*</span>
+										<input type="number" id = "cost_price" name = "cost_price" class="form-control" placeholder="In RS" required="required"/>
+								</div>
+								<div class="form-group col-md-4">
 									<label>Price:</label> <span style="color: red;">*</span>
 										<input type="number" class="form-control" id="p_price" name = "p_price" placeholder="In Rupees" required="required" />
 								</div>
 								<div class="form-group col-md-4">
-									<label>Quantity:</label> <span style="color: red;">*</span>
-										<input type="number" class="form-control" id="p_quantity" name = "p_quantity" placeholder="In Number" required="required" />
-								</div>
-								<div class="form-group col-md-4">
-									<label>Weight:</label> <span style="color: red;">*</span>
-										<input type="number" id = "p_weight" name = "p_weight" class="form-control" placeholder="In Kg" required="required"/>
+									<label>Quantity:</label>
+										<input type="number" value="0" class="form-control" id="p_quantity" name = "p_quantity" readonly="readonly"/>
 								</div>
 							</div> 
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>Vendor name:</label> <span style="color: red;">*</span>
+										<input type="text" class="form-control" id="ven_name" name = "ven_name" placeholder="Enter vendor name" required="required" />
+								</div>
+								<div class="form-group col-md-6">
+									<label>Bill Number:</label>
+										<input type="text" class="form-control" id="bill_no" placeholder = "enter your bill no" name = "bill_no"/>
+								</div>
+							</div>
 							 <div class="form-group">
 							    <label>Description:</label>
 							    <input type="text" class="form-control" id="p_desc" name = "p_desc" placeholder="Product description, not more than 25 words" />

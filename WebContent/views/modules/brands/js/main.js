@@ -128,7 +128,7 @@
 			}
 		}
 	}
-	//delete category modal..
+	//delete brand modal..
 	function delete_modal(id, brand, page_no){
 		$("#hidden_id").val(id);
 		$("#hidden_parent").html(brand);
@@ -137,7 +137,7 @@
 		 $('#success_alert').hide();
 		 $('#error_alert').hide();
 	}
-	//delete category..
+	//delete brand..
 	function deletebrand(){
 		var id = $("#hidden_id").val();
 		var brand =  $("#hidden_parent").text();
@@ -146,7 +146,7 @@
 		$.ajax({
 		     type: "POST",
 		     url: './delete_brand',
-		     data: {id : id},
+		     data: {id : id, status : "single"},
 		     beforeSend:   function(){$('.loadingDiv').show();},
 		     success: function(data) {
 		    	 console.log(data);
@@ -166,6 +166,69 @@
 		     }
 		});
 	}
+	
+	 //searching..
+	 $("#searchinput").keyup(function(){
+		 var searchValue = $("#searchinput").val();
+		 var searchType = "";
+		 var searchTable = "brand";
+			 	
+		 	if(searchValue != ""){
+		 			$.ajax({
+					     type: "POST",
+					     url: './search',
+					     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+	
+					     success: function(data) {
+					    	 console.log("data = " + data);
+					    	 if(data !=""){
+					    		 $("#brand_table").html(data);
+						    	 $("#footer").html(""); 
+					    	 }else{
+					    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+					    		 $("#brand_table").html(data);
+						    	
+					    	 }
+					    	 
+					     }
+					});
+		 	}else{
+		 		ListBrandWithAjax(1);
+		 	}
+		 	
+	 });
+	 //search function..
+	 function search(e){
+		// e.preventDefault();
+		 console.log("from search");	
+		 var searchValue = $("#searchinput").val();
+		 var searchType = "";
+		 var searchTable = "brand";
+		 	if(searchValue != ""){
+		 		$.ajax({
+				     type: "POST",
+				     url: './search',
+				     data: {searchValue : searchValue, searchType : searchType, searchTable : searchTable},
+				     beforeSend:   function(){$('.loadingDiv').show();},
+				     success: function(data) {
+				    	 console.log(data);
+				    	// alert(data);
+				    	 if(data !=""){
+				    		 $("#prod_tbl").html(data);
+					    	 $("#footer").html(""); 
+				    	 }else{
+				    		 $("#footer").html("<h5><span style = 'color:red;'> sorry ! no result found .</span></h5>");
+				    		 $("#prod_tbl").html(data);
+				    	 }
+				     }
+				});
+		 		
+		 		$('.loadingDiv').hide();
+		 	}else{
+		 		ListBrandWithAjax(1);
+		 	}
+		 
+	 }
 	//listing using pagination and ajax..
 	function ListBrandWithAjax(current_page){
 		console.log(current_page);
@@ -198,6 +261,77 @@
 		     }
 		});
 	}
+	//head-check-box..
+    function head_checkbox_on_click(){
+        var indicator = true;
+        
+       if($('#headchek').prop('checked') == true){
+            $("table tbody").find('input[name="record"]').each(function(){
+               //checked all un-checked check-box..
+                if(!$(this).is(":checked")){
+                        $(this).prop('checked',true);
+                    }
+            });
+            $('#delete-row').show();
+        }
+        else
+          {
+            $("table tbody").find('input[name="record"]').each(function(){
+               //checked all un-checked check-box..
+                if($(this).is(":checked")){
+                        $(this).prop('checked',false);
+                    }
+            });
+            $('#delete-row').hide(); 
+          }
+   }
+    function deleteBrandOnCheck(){
+   	 if(confirm('are you sure ? dlete checked item/items !!')){
+	            var array = [];
+	              $("table tbody").find('input[name="record"]').each(function(){
+	                  if($(this).is(":checked")){
+	                      array.push($(this).parents("tr").attr("id"));
+	                  }
+	              });
+	              $.ajax({
+					     type: "POST",
+					     url: './delete_brand',
+					     data: {ids:array, status : "multiple"},
+					     beforeSend:   function(){$('.loadingDiv').show();},
+					     success: function(data){
+					    	 console.log(data);
+					    	 if(data == "success"){
+					    		 alert("congrats ! Item deleted successfully !");
+					    		 $('#headchek').prop('checked', false);
+					    		 ListBrandWithAjax(1);
+					    	 }else if(data === "hasProduct"){
+					        	 showErrorMsg("Sory some brand have products, fail to delete !");
+					         }else{
+					    		console.log('error from else'); 
+					    	 }
+					    	 $('.loadingDiv').hide();
+					     }
+					});
+   	 	}
+    }
+    //check boxes...
+    function checkbox_on_click(){
+        var indicator = true;
+        var indicateHeadCheakBox = true;
+        $('#delete-row').show();
+        $("table tbody").find('input[name="record"]').each(function(){
+            if($(this).is(":checked")){
+                    indicator = false;
+                }
+            if(!$(this).is(":checked")){
+                 indicateHeadCheakBox = false;
+            }
+        });
+        if(indicator)
+          $('#delete-row').hide(); 
+        if(indicateHeadCheakBox)
+           $('#headchek').prop('checked',true);
+    }
 	
 	//success message..
 	 function shwoSuccessMsg(message){

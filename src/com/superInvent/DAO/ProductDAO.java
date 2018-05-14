@@ -2,36 +2,48 @@ package com.superInvent.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
+import com.mysql.jdbc.Statement;
 import com.superInvent.POJO.ProductMaster;
+import com.superInvent.POJO.PurchaseMaster;
 import com.superInvent.POJO.Users;
 
 public class ProductDAO extends JDBCConnection{
 	
-	public String insert(ProductMaster product) {
+	public String insert(ProductMaster product, String bill_no, String vendor_name) {
+		String query = "INSERT INTO `products`(`p_name`, `brand_id`, `category_master_id`, `price`, `avl_stock`,"
+				+"`added_date`, `status`, `type`, `wt`, `exp_date`, `batch_no`, `Description`, `is_deleted`, `purchase_id`, `cost_price`)"
+				 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 				if(isAlreadyExist(product.getP_name())) {
 					return product.getP_name() + ", already exist !";
 				}
-			String query = "INSERT INTO `products`(`p_name`, `brand_id`, `category_master_id`, `price`, `avl_stock`,"
-							+"`added_date`, `status`, `type`, `wt`, `exp_date`, `batch_no`, `Description`, `is_deleted`)"
-							 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-				PreparedStatement preparedStatement = con.prepareStatement(query);
-				preparedStatement.setString(1, product.getP_name());
-				preparedStatement.setInt(2, product.getBrand_id());
-				preparedStatement.setInt(3, product.getCategory_master_id());
-				preparedStatement.setDouble(4, product.getPrice());
-				preparedStatement.setInt(5, product.getStock());
-				preparedStatement.setTimestamp(6, product.getAdded_date());
-				preparedStatement.setInt(7, product.getStatus());
-				preparedStatement.setString(8, product.getP_type());
-				preparedStatement.setDouble(9, product.getWeight());
-				preparedStatement.setString(10, product.getExpiry_date());
-				preparedStatement.setString(11, product.getBatch_no());
-				preparedStatement.setString(12, product.getDesc());
-				preparedStatement.setInt(13, product.getIs_deleted());
-				// execute insert SQL stetement
-				preparedStatement.executeUpdate();
+			
+				int purchaseId = insertBill(product.getAdded_date(), bill_no, vendor_name, 0.0);
+				if(purchaseId > 0) {
+					
+					PreparedStatement preparedStatement = con.prepareStatement(query);
+					preparedStatement.setString(1, product.getP_name());
+					preparedStatement.setInt(2, product.getBrand_id());
+					preparedStatement.setInt(3, product.getCategory_master_id());
+					preparedStatement.setDouble(4, product.getPrice());
+					preparedStatement.setInt(5, product.getStock());
+					preparedStatement.setTimestamp(6, product.getAdded_date());
+					preparedStatement.setInt(7, product.getStatus());
+					preparedStatement.setString(8, product.getP_type());
+					preparedStatement.setDouble(9, product.getWeight());
+					preparedStatement.setString(10, product.getExpiry_date());
+					preparedStatement.setString(11, product.getBatch_no());
+					preparedStatement.setString(12, product.getDesc());
+					preparedStatement.setInt(13, product.getIs_deleted());
+					preparedStatement.setInt(14, purchaseId);
+					preparedStatement.setDouble(15, product.getCost_price());
+					// execute insert SQL statement..
+					if(preparedStatement.executeUpdate() > 0)
+						return "success";
+				}
+				
 		
 		} catch (Exception e) {
 			System.out.println("from productDAO insert");
@@ -39,10 +51,48 @@ public class ProductDAO extends JDBCConnection{
 			return "fail";
 		}
 		
-		return "success";
+		return "fail";
 	}
 	
-	//update brand status
+	public int insertBill(Timestamp purchased_at, String bill_no, String vendor_name, double tot_price) {
+		
+		String query = "INSERT INTO `purchase_details`(`purchased_at`, `purchesed_from`, `purchesed_bill_no`, `total_purchesed_amount`) "
+						+ "VALUES (?,?,?,?)";
+		
+		try {
+			
+			int purchase_id  = new PurchaseDAO().isBillExist(bill_no);
+			
+				if(purchase_id > 0) {
+					return purchase_id;
+				}
+			
+			PreparedStatement preparedStatement = con.prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setTimestamp(1, purchased_at);
+			preparedStatement.setString(2, vendor_name);
+			preparedStatement.setString(3, bill_no);
+			preparedStatement.setDouble(4, tot_price);
+			
+			int res = preparedStatement.executeUpdate();
+				if(res > 0) {
+					ResultSet rs = preparedStatement.getGeneratedKeys();
+						if(rs.next()) {
+						    purchase_id = rs.getInt(1);
+							return  purchase_id;
+						}
+						return 0;
+				}
+				return 0;
+
+		} catch (Exception e) {
+			System.out.println("error from ProductDao");
+			System.out.println("insertBill");
+			System.out.println(e);
+		}
+		return 0;
+	}
+	
+	//update product status
 	public String updateStatus(int id, int status){
 		
 		try {
@@ -124,13 +174,23 @@ public class ProductDAO extends JDBCConnection{
 		return null;
 	}
 	
-	public String delete(int id) {
+	public String delete(String[] ids) {
+		String idString = "";
+		int i;
 		try {
-			String query = "UPDATE `products` SET is_deleted = 1 WHERE id = ?";
-			 PreparedStatement preparedStmt = con.prepareStatement(query);
-		      preparedStmt.setInt(1, id);
-		      
-		     boolean response =  preparedStmt.execute();
+			for(i=0; i<ids.length-1; i++) {
+				idString += ids[i] + ", ";
+			}
+			idString += ids[i];
+			String query = "UPDATE `products` SET is_deleted = 1 "
+							+ "where id in (" + idString + ");";
+			System.out.println("query  = " +query);
+			
+			int x = this.executeUpdate(query);
+			System.out.println("x = "+ x);
+			if(x > 0) {
+				return "success";
+			}
 		      
 		      con.close();				
 		} catch (Exception e) {
@@ -139,12 +199,12 @@ public class ProductDAO extends JDBCConnection{
 			return "fail";
 		}
 		
-		return "success";
+		return "fail";
 	}
 	
 	//check if product is already exist..
 	
-	private boolean isAlreadyExist(String p_name) {
+	public boolean isAlreadyExist(String p_name) {
 		String query = "select id from products where p_name = '"+ p_name + "'";
 		try {
 			ResultSet rs = this.createStatement(query);

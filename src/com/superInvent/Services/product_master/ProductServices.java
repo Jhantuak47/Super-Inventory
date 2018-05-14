@@ -17,21 +17,24 @@ public class ProductServices {
 			 				+ "<td>"+ i +"</td>"
 			 				+ "<td>"+ rs.getString("name") +"</td>"
 			 				+ "<td>"+ rs.getString("brand") +"</td>"
-			 				+ "<td>"+ rs.getString("category") +"</td><td>";
-			 				if(rs.getInt("state") == 1)
-			 tbody  +="<a href = \"#\" onclick=\"Update_category_status("+ rs.getInt("id") +","+ page_no +", "+ rs.getInt("state") +" );\" class=\"btn btn-danger btn-sm\" style=\"margin-right:10px;\">Deactivate</a>";			
-			 				else
-	         tbody  +="<a href = \"#\" onclick=\"Update_category_status("+ rs.getInt("id") +","+ page_no +", "+ rs.getInt("state") +" );\" class=\"btn btn-success btn-sm\" style=\"margin-right:10px;\">Active</a>";			
-
-			 tbody +="</td><td>"
+			 				+ "<td>"+ rs.getString("category") +"</td>"
+			  				+ "<td>Rs."+ rs.getDouble("price") +"</td>"
+			  				+ "<td>";
+			  tbody  +=		(rs.getString("exp_date").equals("")) ? "<i>Nill</i>" : rs.getString("exp_date")
+			  				+"</td>";
+			 tbody +="<td>" 
 			 		+ " <a onclick=\"edit('"+ rs.getInt("id") +"');\""
 			 				+ " class=\"btn btn-primary btn-sm active\">"
 			 				+ "<i class=\"fa fa-edit\" aria-hidden=\"true\"></i>&nbsp;Edit</a>&nbsp;";
-			 tbody +=  "<a class = \"btn btn-danger active btn-sm\" "
-			 				+ "onclick = \"delete_modal('"+ rs.getInt("id") +"', '"+ rs.getString("name") +"', "+ page_no +");\">Delete</a></td>";
-			 tbody += "<td><a class = \"btn btn-info active btn-sm\" onclick = \"delete_modal('<%= product.getId() %>', "
+				if(rs.getInt("state") == 1)
+			 tbody  +="<a href = \"#\" onclick=\"Update_category_status("+ rs.getInt("id") +","+ page_no +", "+ rs.getInt("state") +" );\" class=\"btn btn-danger btn-sm\" style=\"margin-right:10px;\">Deactivate</a>";			
+			 				else
+			 tbody  +="<a href = \"#\" onclick=\"Update_category_status("+ rs.getInt("id") +","+ page_no +", "+ rs.getInt("state") +" );\" class=\"btn btn-success btn-sm\" style=\"margin-right:10px;\">Active</a>";			
+
+			 tbody	+="</td>";
+			 tbody  += "<td><a class = \"btn btn-info active btn-sm\" onclick = \"delete_modal('<%= product.getId() %>', "
 			 		+ "'<%= product.getP_name() %>', <%= page_no %>);\"><i class=\"fa fa-eye\"></i>&nbsp;View</a></td>";
-			 tbody +="</tr>";
+			 tbody  +="</tr>";
 			 	i++;
 			}
 			return tbody;

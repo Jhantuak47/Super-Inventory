@@ -19,15 +19,23 @@ public class DeleteBrand extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id  = Integer.parseInt(request.getParameter("id"));
+		BrandDAO dao =  new BrandDAO();
+		String message = "fail";
 		try {
-			BrandDAO dao =  new BrandDAO();
-			String message = dao.delete(id);
-			new PrintWriter(response.getWriter()).print(message);
+				if(request.getParameter("status").equals("multiple")) {
+					
+					String[] ids = request.getParameterValues("ids[]");
+					message = dao.deleteMultiple(ids);
+				}else {
+					int id  = Integer.parseInt(request.getParameter("id"));
+				    message = dao.delete(id);
+				}
+				
+				new PrintWriter(response.getWriter()).print(message);
 			
 		} catch (Exception e) {
 			try {
-				System.out.println("error form DeleteCategory servlet !");
+				System.out.println("error form DeleteBrand servlet !");
 				System.out.println(e);
 				new PrintWriter(response.getWriter()).print("fail");
 			} catch (Exception e2) {

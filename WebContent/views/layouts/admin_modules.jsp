@@ -21,7 +21,7 @@
 					<div class="card-body">
 						<h5 class="card-title">Purchase Master</h5>
 						<p class="card-text">Purchase records of products</p>
-						<a href="../list_brand" class="btn btn-primary  pull-left"><i
+						<a href="../views/modules/purchase_master/index.jsp" class="btn btn-primary  pull-left"><i
 							class="fa fa-edit"></i>&nbsp;Manage</a>
 					</div>
 				</div>

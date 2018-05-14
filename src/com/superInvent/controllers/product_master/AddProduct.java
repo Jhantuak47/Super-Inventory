@@ -25,7 +25,9 @@ public class AddProduct extends HttpServlet {
 		
 			
 		try {
-				
+			
+				String bill_no = request.getParameter("bill_no");
+				String vendor_name = request.getParameter("ven_name");
 				ProductMaster product   = new ProductMaster();
 				product.setAdded_date(new Timestamp(new Date().getTime()));
 				product.setP_name(request.getParameter("p_name").toLowerCase());
@@ -34,17 +36,17 @@ public class AddProduct extends HttpServlet {
 				product.setBrand_id(Integer.parseInt(request.getParameter("p_brand")));
 				product.setBatch_no(request.getParameter("p_batch"));
 				product.setPrice(Double.parseDouble(request.getParameter("p_price")));
+				product.setCost_price(Double.parseDouble(request.getParameter("cost_price")));
 				product.setStock(Integer.parseInt(request.getParameter("p_quantity")));
-				product.setWeight(Double.parseDouble(request.getParameter("p_weight")));
 				product.setDesc(request.getParameter("p_desc"));
 				product.setP_type(request.getParameter("p_type"));
 				product.setStatus(1);
 				product.setIs_deleted(0);
-				
-				new PrintWriter(response.getWriter()).print( new ProductDAO().insert(product));
+				new PrintWriter(response.getWriter()).print( new ProductDAO().insert(product, bill_no, vendor_name));
 		} catch (Exception e) {
 			try {
 				System.out.println("error form AddProduct servlet");
+				System.out.println(e);
 				new PrintWriter(response.getWriter()).print("fail");
 			} catch (Exception e2) {
 				System.out.println("Add product this will not execute");

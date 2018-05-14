@@ -14,13 +14,22 @@ import com.superInvent.DAO.CategoryDAO;
 @WebServlet(description = "for deleting category", urlPatterns = { "/delete_cat" })
 public class DeleteCategory extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response){
-		int cat_id  = Integer.parseInt(request.getParameter("id"));
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
+		CategoryDAO dao = new CategoryDAO();
+		String message = "";
 		try {
-			CategoryDAO dao =  new CategoryDAO();
-			String message = dao.delete(cat_id);
+
+			if (request.getParameter("status").equals("multiple")) {
+				System.out.println("from = " + request.getParameter("status"));
+				String[] ids = request.getParameterValues("ids[]");
+				message = dao.deleteMultiple(ids);
+			} else {
+				int cat_id = Integer.parseInt(request.getParameter("id"));
+				message = dao.delete(cat_id);
+			}
+
 			new PrintWriter(response.getWriter()).print(message);
-			
 		} catch (Exception e) {
 			try {
 				System.out.println("error form DeleteCategory servlet !");
@@ -29,7 +38,7 @@ public class DeleteCategory extends HttpServlet {
 			} catch (Exception e2) {
 				System.out.println("error form e2");
 			}
-			
+
 		}
 	}
 

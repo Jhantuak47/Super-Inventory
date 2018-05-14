@@ -160,6 +160,41 @@ public class CategoryDAO extends JDBCConnection{
 		return "success";
 	}
 	
+	//delete multiple records...
+	public String deleteMultiple(String[] ids) {
+		String idString = "";
+		for(String id : ids) {
+			if(isCategoryDependent(Integer.parseInt(id))) {
+				return "dependend";
+			}
+			if(isCategoryhasProduct(Integer.parseInt(id))) {
+				return "hasProduct";
+			}
+		}
+		int i;
+		try {
+			for(i=0; i<ids.length-1; i++) {
+				idString += ids[i] + ", ";
+			}
+			idString += ids[i];
+			String query = "UPDATE `category_master` SET is_deleted = 1 "
+							+ "where id in (" + idString + ");";
+			System.out.println(query);
+			int x = this.executeUpdate(query);
+			if(x > 0) {
+				return "success";
+			}
+		      
+		      con.close();				
+		} catch (Exception e) {
+			System.out.println("error brand dao, delet()");
+			System.out.println(e);
+			return "fail";
+		}
+		
+		return "fail";
+	}
+	
 	//check if categroy has child category..!!
 	
 	public boolean isCategoryDependent(int cat_id) {

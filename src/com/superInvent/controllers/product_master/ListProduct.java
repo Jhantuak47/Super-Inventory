@@ -42,7 +42,7 @@ public class ListProduct extends HttpServlet {
 					product.setStatus(rs.getInt("state"));
 					product.setWeight(rs.getDouble("wt"));
 					product.setP_type(rs.getString("type"));
-					product.setExpiry_date(rs.getString("exp_date"));
+					product.setExpiry_date((rs.getString("exp_date").equals("")) ?"<i>Nill</i>" : rs.getString("exp_date"));
 					product.setBatch_no(rs.getString("batch_no"));
 					product.setDesc(rs.getString("dsc"));
 					products.add(product);

@@ -85,13 +85,13 @@
 		function add_product_btn(){
 			removePAllExistValues();
 			$('#p_err').hide();
+			$("#p_quantity").val(0);
 			$("#add_product_button").click();
 		}
 
 		function add_product(e){
 			e.preventDefault();
-			console.log('hred');
-			if($("#p_name").val() == "" || $('#p_category').val() == "" || $('#p_brand').val() == "" ||$('#p_batch').val() == "" || $('#p_price').val() == "" || $('#p_quantity').val() == "" ||$('#p_weight').val() == ""){
+			if($("#p_name").val() == "" || $('#p_category').val() == "" || $('#p_brand').val() == "" ||$('#p_batch').val() == "" || $('#p_price').val() == "" ||$('#cost_price').val() == "" ||$('#bill_no').val() == "" ||$('#ven_name').val() == ""){
 				 $('#p_errMsg').text("(*) mandatory field");
 		        $('#p_err').show();
 			}else{
@@ -109,7 +109,7 @@
 				        	 removePAllExistValues();
 				        	$('#add_product_close_btn').click();
 				         }else if(data.indexOf('already exist !') != -1){
-				        	 $('#p_errMsg').text(data);
+				        	 $('#p_errMsg').text($("#p_name").val() + ", "+data);
 					        	$('#p_err').show();
 				         }else{
 				        	 console.log('fail from product js');

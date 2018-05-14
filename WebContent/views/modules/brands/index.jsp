@@ -5,6 +5,14 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.superInvent.POJO.BrandMaster"%>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
+	<%  Date dt = new Date();  
+			    SimpleDateFormat formatter = new SimpleDateFormat("dd,  MMMM yyyy");
+			    List<BrandMaster> brands =  new ArrayList<BrandMaster>();
+				brands = (List<BrandMaster>)request.getAttribute("brands");
+				 int page_no = (Integer)request.getAttribute("page_no");
+				int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
+				 int i = ( (page_no - 1) * numberOfResultPerPage ) + 1;
+	%>
             <div class="card mx-auto" style="max-width: 55rem;">
                 <div class="card-header" text-white" style="background-color:#1e90ff;">
                      <div class="row">
@@ -12,15 +20,12 @@
 	                      Welcome to Brand List
 	                     </div>
 	                     <div class="col-md-5">
-	                         <form action="" method="" autocomplete="on">
+	                         <form action="" onsubmit = "return false">
 	                                 <div class="input-group">
-	                                   <input type="text" name="searchinput" id="searchinput" size="30%" class="" placeholder="Search Category" list ="users"
+	                                   <input type="text" class = "form-control-sm" name="searchinput" id="searchinput" size="30%" class="" placeholder="Search Category" list ="users"
 	                                   style="background-color : #d1d1d1;"> <span class="input-group-btn"></span>
-	                                   <datalist id="users">
-	                                     
-	                                     </datalist>
 	                                   <div class="clearfix"></div>
-	                                   &nbsp;<button class="btn btn-success btn-sm" type="submit" style="display:;" onclick="searchSection(event)" id="search_icon">
+	                                   &nbsp;<button class="btn btn-success btn-sm" type="submit" style="display:;" onclick="search()" id="search_icon">
 	                                     <i class="fa fa-search"></i></span>
 	                                   </button>
 	                                   <button style="display:none ;font-size:20px; margin-top: 1px;" id="filter_button" class="btn-danger" onclick="removeFilter(event);"><i class="fa fa-remove"></i></button>
@@ -28,7 +33,7 @@
 	                         </form>
 	                     </div>
 	                     <div class="col-md-4" style="">
-	                     <button style="margin-left:60px;display:none;font-size:16px;" id="delete-row" class="btn-danger" onclick="delete_modal();"><i class='fa fa-trash-o'></i>&nbsp;Delete</button><!--delete button -->
+	                     <button style="margin-left:60px;display:none;font-size:16px;" id="delete-row" class="btn-danger" onclick="deleteBrandOnCheck();"><i class='fa fa-trash-o'></i>&nbsp;Delete</button><!--delete button -->
 	                     <a href = "#" onclick = "add();" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add</a>
 	                     </div>
                     </div><!--row end -->
@@ -49,15 +54,7 @@
                         </thead>
                         <tbody id = "brand_table">
                           <% 
-                          
-	                          Date dt = new Date();  
-	                          SimpleDateFormat formatter = new SimpleDateFormat("dd,  MMMM yyyy");
-                            List<BrandMaster> brands =  new ArrayList<BrandMaster>();
-  									brands = (List<BrandMaster>)request.getAttribute("brands");
-  									 int page_no = (Integer)request.getAttribute("page_no");
-  									int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
-  									 int i = ( (page_no - 1) * numberOfResultPerPage ) + 1;
-	                           	for(BrandMaster brand : brands){%>
+	                         for(BrandMaster brand : brands){%>
 		               				
                                 <tr id="<%= brand.getId() %>">
                                     <td><input type="checkbox"  onclick = "checkbox_on_click()" name="record"></td>

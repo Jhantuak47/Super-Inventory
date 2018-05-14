@@ -10,6 +10,7 @@ public class ProductMaster {
 	private int category_master_id;
 	private String category;
 	private double price;
+	private double cost_price;
 	private int stock;
 	private Timestamp added_date;
 	private int status;
@@ -117,14 +118,19 @@ public class ProductMaster {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+	public double getCost_price() {
+		return cost_price;
+	}
+	public void setCost_price(double cost_price) {
+		this.cost_price = cost_price;
+	}
 	@Override
 	public String toString() {
 		return "ProductMaster [id=" + id + ", p_name=" + p_name + ", brand_id=" + brand_id + ", brand=" + brand
 				+ ", category_master_id=" + category_master_id + ", category=" + category + ", price=" + price
-				+ ", stock=" + stock + ", added_date=" + added_date + ", status=" + status + ", p_type=" + p_type
-				+ ", weight=" + weight + ", expiry_date=" + expiry_date + ", batch_no=" + batch_no + ", desc=" + desc
-				+ ", is_deleted=" + is_deleted + "]";
+				+ ", cost_price=" + cost_price + ", stock=" + stock + ", added_date=" + added_date + ", status="
+				+ status + ", p_type=" + p_type + ", weight=" + weight + ", expiry_date=" + expiry_date + ", batch_no="
+				+ batch_no + ", desc=" + desc + ", is_deleted=" + is_deleted + "]";
 	}
-
 	
 }

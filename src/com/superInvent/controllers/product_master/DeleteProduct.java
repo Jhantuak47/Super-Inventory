@@ -16,10 +16,11 @@ public class DeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int prod_id  = Integer.parseInt(request.getParameter("id"));
+		String[] prod_ids  = request.getParameterValues("id[]");
+		System.out.println(prod_ids);
 		try {
 			ProductDAO dao =  new ProductDAO();
-			String message = dao.delete(prod_id);
+			String message = dao.delete(prod_ids);
 			new PrintWriter(response.getWriter()).print(message);
 			
 		} catch (Exception e) {

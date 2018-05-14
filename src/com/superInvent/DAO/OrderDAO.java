@@ -15,17 +15,17 @@ public class OrderDAO extends JDBCConnection {
 			try {
 				String sql = "SELECT id, p_name from products";
 				ResultSet rs = this.createStatement(sql);
-				if(rs.isBeforeFirst()) {
+				
 					row +="<tr>"
 							+ "<td><b class=\"number\">1</b></td>" + 
 							"<td><select name=\"pid[]\" class = \"form-control form-control-sm pid\"> ";
 					row += "<option value = ''>choose product </option>";		
-						
+					if(rs.isBeforeFirst()) {	
 							while(rs.next()) {
 								row += "<option value = "+ rs.getInt("id") +">"+ rs.getString("p_name") +"</option> ";
 							}
 						
-					
+					}
 					row	 += 
 							"</select></td> " + 
 							"<td><input name=\"tqty[]\" type=\"text\" " + 
@@ -38,7 +38,6 @@ public class OrderDAO extends JDBCConnection {
 							"class=\"pro_name\"></td>" + 
 							"<td>Rs.<span class = 'amt'>0</td> " + 
 							"</tr>";
-				}
 				
 				return row;	
 			} catch (Exception e) {
