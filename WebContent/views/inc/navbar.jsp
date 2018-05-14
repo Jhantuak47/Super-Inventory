@@ -19,7 +19,7 @@
 			          <a class="dropdown-item" href="/superInvent/views/modules/purchase_master/index.jsp">Purchase Details</a>
 			          <a class="dropdown-item" href="/superInvent/views/modules/order_master/index.jsp">Sales Details</a>
 			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="#">Reports</a>
+			          <a class="dropdown-item" href="./modules/report/index.jsp">Reports</a>
 			        </div>
 			      </li>
 			      <li class="nav-item dropdown" style = "padding-left:20px;">

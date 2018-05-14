@@ -48,6 +48,7 @@ public class SearchDAO extends JDBCConnection{
 				case "purchase_details":
 					break;
 				case "invoice":
+					sql = "SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty from (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty FROM (SELECT * FROM invoice WHERE cust_name in ('jhantu nandi') and order_date >= '2018-05-08') as c LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
 					break;
 				default :
 					break;
