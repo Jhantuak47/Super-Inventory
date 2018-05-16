@@ -11,7 +11,7 @@
 		<div class="card" style = "box-shadow:0 0 25px 0 lightgrey;">
 			<div class="card-header"><h5>Reports</h5></div>
 			<div class="card-body">
-				<form id = "report_form_data" onsubmit = "return false">
+				<form method = "post" action = "/superInvent/reports">
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Select Transition Mode* :</label>
 						<div class = "col-sm-6">
@@ -34,9 +34,9 @@
 									</tr>
 								</thead>
 								<tbody id="report_generate">
-									<tr><td>1</td><td style="text-align: center;">Seller Name :</td><td><input type = "text" class = "form-control form-control-sm" name = "name" placeholder="Select Name" required="required"></td></tr>
-									<tr><td>2</td><td style="text-align: center;">Selling Date :</td> <td><input type = "date" class = "form-control form-control-sm" name = "date" required="required"></td> </tr>
-									<tr><td>3</td><td style="text-align: center;">Due :</td> <td> </td> </tr>
+									<tr><td>1</td><td style="text-align: center;">Seller Name :</td><td><input type = "text" class = "form-control-sm" name = "name" placeholder="Select Name"></td></tr>
+									<tr><td>2</td><td style="text-align: center;">Selling Date :</td><td><input type = "date" class = "form-control-sm" name = "dateFrom" placeholder=""> To:</td><td><input type = "date" class = "form-control-sm" name = "dateTo"></td> </tr>
+									<tr><td>3</td><td style="text-align: center;">Product name :</td> <td><span><input type = "hidden" name = "table" value = "invoice"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>
 								</tbody>
 							</table> 
 							
@@ -45,8 +45,7 @@
 					<br>
 					<hr>
 					<div align="center">
-						<input type="submit" id = "report_form_btn" style = "width:150px;" class = "btn btn-success" value = "Generate Reports">
-						<input type="submit" id = "Print_invoice" style = "width:150px;" class = "btn btn-success d-none" value = "Print Invoice">
+						<input type="submit" style = "width:150px;" class = "btn btn-success" value = "Generate Reports">
 					</div>
 				</form>
 			</div>

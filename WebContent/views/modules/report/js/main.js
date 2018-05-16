@@ -6,14 +6,14 @@ $(document).ready(function(){
 		console.log(type);
 		if(type == 1){
 			$("#heading").html('Provide Seller Info');
-			var tbody = '<tr><td>1</td><td style="text-align: center;">Seller Name :</td><td><input type = "text" class = "form-control form-control-sm" name = "name" placeholder="Select Name" required="required"></td></tr>';
-				tbody +='<tr><td>1</td><td style="text-align: center;">Selling Date :</td><td><input type = "date" class = "form-control form-control-sm" name = "date" required="required"></td> </tr>';
-				tbody +='<tr><td>1</td><td style="text-align: center;">Due :</td> <td> </td> </tr>';
+			var tbody = '<tr><td>1.</td><td style="text-align: center;">Seller Name :</td><td><input type = "text" class = "form-control-sm" name = "name" placeholder="Select Name" required="required"></td></tr>';
+				tbody +='<tr><td>2.</td><td style="text-align: center;">Selling Date :</td><td><input type = "date" class = "form-control-sm" name = "dateFrom" placeholder=""> To:</td><td><input type = "date" class = "form-control-sm" name = "dateTo" required="required"></td> </tr>';
+				tbody +='<tr><td>3.</td><td style="text-align: center;">Product name :</td> <td><span><input type = "hidden" name = "table" value = "invoice"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>';
 		}else if(type == 2){
-			$("#heading").html('Provide Purchase Info');
-			var tbody = '<tr><td>1</td><td style="text-align: center;">Vendor Name :</td><td><input type = "text" name = "name" class = "form-control form-control-sm" placeholder="Select Name" required="required"></td></tr>';
-				tbody +='<tr><td>1</td><td style="text-align: center;">Purchase Date :</td><td><input type = "date" name = "date" class = "form-control form-control-sm" placeholder="Select Name" required="required"></td> </tr>';
-				tbody +='<tr><td>1</td><td style="text-align: center;">Payment Mode :</td> <td> </td> </tr>';
+			$("#heading").html('Provide Vendor Info');
+			var tbody = '<tr><td>1.</td><td style="text-align: center;">Vendor Name :</td><td><input type = "text" class = "form-control-sm" name = "name" placeholder="Select Name" required="required"></td></tr>';
+				tbody +='<tr><td>2.</td><td style="text-align: center;">Purchase Date :</td><td><input type = "date" class = "form-control-sm" name = "dateFrom" placeholder=""> To:</td><td><input type = "date" class = "form-control-sm" name = "dateTo" required="required"></td> </tr>';
+				tbody +='<tr><td>3.</td><td>Item name :</td> <td><span><input type = "hidden" name = "table" value = "purchase"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>';
 		}
 		$("#report_generate").empty();
 		$("#report_generate").append(tbody);

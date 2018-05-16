@@ -45,11 +45,6 @@ public class SearchDAO extends JDBCConnection{
 							+ "FROM category_master p LEFT JOIN category_master c ON c.id = p.parrent_category)"
 							+ "as searchTBL WHERE category LIKE '"+ searchValue +"%')as myTable WHERE myTable.is_deleted != 1 ORDER BY id DESC";
 					break;
-				case "purchase_details":
-					break;
-				case "invoice":
-					sql = "SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty from (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty FROM (SELECT * FROM invoice WHERE cust_name in ('jhantu nandi') and order_date >= '2018-05-08') as c LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
-					break;
 				default :
 					break;
 				}
@@ -68,5 +63,75 @@ public class SearchDAO extends JDBCConnection{
 				System.out.println(e);
 			}
 			return tbody;
+		}
+		
+		public ResultSet reports(String table, String[] param) {
+			String sql = "";
+			try {
+				switch (table) {
+				case "purchase_details":
+					break;
+				case "invoice":
+					switch (param.length) {
+					case 2:
+						switch (param[0]) {
+						case "product":
+							
+							break;
+						case "name":
+							
+							break;
+						default:
+							break;
+						}
+						break;
+					case 4:
+						//for two parameters
+						switch (param[0]) {
+						case "DATE_PRODUCT":
+							//for 2 parameter (date and p_name)...
+							sql = "SELECT * FROM (SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+									+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty"
+									+ " FROM (SELECT * FROM invoice WHERE order_date BETWEEN '"+param[2]+"' AND '"+ param[3] +"') as c LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report"
+									+ " LEFT JOIN products on report.product_id = products.id)as finalTbl WHERE name in ('"+ param[1] +"')";
+							break;
+						case "DATE_NAME":
+							//for 2 parameter (date and name)...
+							sql = "SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+									+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty "
+									+ "FROM (SELECT * FROM invoice WHERE cust_name in ('"+ param[1] +"') and order_date BETWEEN '"+param[2]+"' AND '"+ param[3] +"') as c "
+									+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
+							break;
+						default:
+							System.out.println("from product and name");
+							break;
+						}
+						break;
+					default:
+						//for all parameters
+						sql = "SELECT * FROM(SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+								+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty"
+								+ " FROM (SELECT * FROM invoice WHERE cust_name in ('"+ param[1] +"') and order_date BETWEEN '"+param[2]+"' AND '"+ param[3] +"')as c "
+								+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id) tempTbl WHERE name in ('"+param[4]+"')";
+						System.out.println("from here also");
+						break;
+					}//end of second switch..
+					break;
+				default:
+					System.out.println("nither invoice nor purchase...");
+					break;
+				}//end of first switch..
+				System.out.println(sql);
+				ResultSet rs = this.createStatement(sql);
+				if(rs.isBeforeFirst()) {
+					return rs;
+				}
+				
+			} catch (Exception e) {
+				System.out.println("error from SearchDAO reports..");
+				System.out.println(e);
+			}
+
+			return null;
 		}
 }
