@@ -6,8 +6,9 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
 <div class="row">
-	<% SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy, hh:mm");
+	<% SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy");
 		ResultSet rs = (ResultSet)request.getAttribute("result");
+		String table = (String)request.getAttribute("table");
 		List<Integer> x = new ArrayList<Integer>();
 	%>
 	<div class="col-md-10 mx-auto">
@@ -17,6 +18,67 @@
 			</div>
 			<div class="card-body primary">
 				<% if(rs != null){ %>
+					<% if(table.equals("purchase")){ %>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>vendor</th>
+										<th>Date</th>
+										<th>amount</th>
+										<th>bill_no</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%
+										int i = 0;
+												rs.next();
+												while (!rs.isAfterLast() && !x.contains(rs.getInt(1))) {
+													x.add(rs.getInt(1));
+									%>
+									<tr>
+										<td><%=++i%></td>
+										<td><%=(rs.getString(2).equals("")) ? "<i>Nill</i>" : rs.getString(2)%></td>
+										<td><%=formatter.format(rs.getTimestamp(3))%></td>
+										<td><%=rs.getDouble(4)%></td>
+										<td><%=rs.getInt(5)%></td>
+									</tr>
+									<tr>
+										<table class="table">
+											<thead>
+												<tr>
+													<th style="text-align: center;">#</th>
+													<th>Item</th>
+													<th>Cost Price</th>
+													<th>Price</th>
+													<th>Quantity</th>
+													<th>exp_date</th>
+												</tr>
+											</thead>
+											<tbody>
+												<%
+													int j = 0;
+																do {
+												%>
+												<tr>
+													<td style="text-align: center;"><%=++j%></td>
+													<td><%=rs.getString(6)%></td>
+													<td><%=rs.getDouble(7)%></td>
+													<td><%=rs.getDouble(8)%></td>
+													<td><%=rs.getInt(9)%></td>
+													<td><%= rs.getString(10) %></td>
+												</tr>
+												<%
+													} while (rs.next() && x.contains(rs.getInt(1)));
+												%>
+											</tbody>
+										</table>
+									</tr>
+									<%}%>
+								</tbody>
+							</table>
+
+				<%}else{ %>
 				<table class="table">
 					<thead>
 						<tr>
@@ -34,7 +96,7 @@
 								x.add(rs.getInt(1));
 							%>
 								 <tr>
-									<td><%=++i %></td><td><%= (rs.getString(2).equals("")) ? "<i>Nill</i>" : rs.getString(2)  %></td><td><%=rs.getString(3) %></td><td><%=rs.getDouble(4) %></td><td><%=rs.getDouble(5) %></td>
+									<td><%=++i %></td><td><%= (rs.getString(2).equals("")) ? "<i>Nill</i>" : rs.getString(2)  %></td><td><%= formatter.format(rs.getTimestamp(3)) %></td><td><%=rs.getDouble(4) %></td><td><%=rs.getDouble(5) %></td>
 									<td><%=rs.getInt(6) %></td><td><%=rs.getString(7) %></td>
 								  </tr>
 								  <tr>
@@ -58,7 +120,7 @@
 						<%}%>
 						</tbody>
 				</table>
-					<%}else{ %>
+					<%}}else{ %>
 	
 					<p style="text-align: center;">
 						<span style="color: red;">Sorry! no result found. Please

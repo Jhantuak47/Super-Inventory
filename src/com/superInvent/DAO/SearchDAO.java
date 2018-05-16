@@ -69,19 +69,79 @@ public class SearchDAO extends JDBCConnection{
 			String sql = "";
 			try {
 				switch (table) {
-				case "purchase_details":
+				case "purchase":
+					switch (param.length) {
+					case 2:
+						switch (param[0]) {
+						case "product":
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE p_name in ('"+ param[1] +"')";
+							break;
+						case "name":
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE purchesed_from in ('"+ param[1] +"') ";
+							break;
+						default:
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE purchased_at BETWEEN '"+param[0]+"' AND '"+param[1]+"' ";
+							break;
+						}
+						break;
+					case 4:
+						//for two parameters
+						switch (param[0]) {
+						case "DATE_PRODUCT":
+							//for 2 parameter (date and p_name)...
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE purchased_at BETWEEN '"+param[2]+"' AND '"+param[3]+"' and p_name in ('"+ param[1] +"')";
+							break;
+						case "DATE_NAME":
+							//for 2 parameter (date and name)...
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE purchased_at BETWEEN '"+param[2]+"' AND '"+param[3]+"' and purchesed_from in ('"+ param[1] +"')";
+							break;
+						default:
+							//for 2 parameter (name and p_name)...
+							sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+									+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+									+ "as myTbl WHERE purchesed_from in ('"+ param[1] +"') and p_name in ('"+ param[2] +"')";
+							break;
+						}
+						break;
+					default:
+						//for all parameters
+						sql = "SELECT * FROM(SELECT pd.id, pd.purchesed_from, pd.purchased_at, pd.total_purchesed_amount, pd.purchesed_bill_no, p.p_name, p.cost_price, p.price, p.avl_stock, p.exp_date"
+								+ " FROM purchase_details pd LEFT JOIN products p on pd.id = p.purchase_id) "
+								+ "as myTbl WHERE purchased_at BETWEEN '"+param[2]+"' AND '"+param[3]+"' and purchesed_from in ('"+ param[1] +"') and p_name in ('"+ param[4] +"')";
+						break;
+					}//end of second switch..
 					break;
 				case "invoice":
 					switch (param.length) {
 					case 2:
 						switch (param[0]) {
 						case "product":
-							
+							sql = "SELECT * FROM (SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+									+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty "
+									+ "FROM (SELECT * FROM invoice) as c LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report"
+									+ " LEFT JOIN products on report.product_id = products.id)as finalTbl WHERE name in ('"+ param[1] +"')";
 							break;
 						case "name":
-							
+							sql = "SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty"
+									+ " FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty"
+									+ " FROM (SELECT * FROM invoice WHERE cust_name in ('"+param[1]+"') ) as c "
+									+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
 							break;
 						default:
+							sql = "SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+									+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty"
+									+ " FROM (SELECT * FROM invoice WHERE order_date BETWEEN '"+ param[0] +"' AND '"+ param[1] +"' ) as c"
+									+ " LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
 							break;
 						}
 						break;
@@ -103,7 +163,12 @@ public class SearchDAO extends JDBCConnection{
 									+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id";
 							break;
 						default:
-							System.out.println("from product and name");
+							//for 2 parameter (name and p_name)...
+							sql = "SELECT * FROM (SELECT invoice_no, cust_name, order_date, net_total, paid_amount,due,payment_method, products.p_name as name,product_price,qty "
+									+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty "
+									+ "FROM (SELECT * FROM invoice WHERE cust_name in ('"+ param[1] +"') ) as c "
+									+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id)"
+									+ " as finalTbl WHERE name in ('"+ param[2] +"')";
 							break;
 						}
 						break;
@@ -113,7 +178,6 @@ public class SearchDAO extends JDBCConnection{
 								+ "FROM (SELECT c.invoice_no , cust_name,order_date, sub_total,paid_amount, product_id, due, payment_method,product_price,net_total, qty"
 								+ " FROM (SELECT * FROM invoice WHERE cust_name in ('"+ param[1] +"') and order_date BETWEEN '"+param[2]+"' AND '"+ param[3] +"')as c "
 								+ "LEFT JOIN invoice_details p ON c.invoice_no = p.invoice_no)as report LEFT JOIN products on report.product_id = products.id) tempTbl WHERE name in ('"+param[4]+"')";
-						System.out.println("from here also");
 						break;
 					}//end of second switch..
 					break;
@@ -121,7 +185,9 @@ public class SearchDAO extends JDBCConnection{
 					System.out.println("nither invoice nor purchase...");
 					break;
 				}//end of first switch..
-				System.out.println(sql);
+				if(sql.equals("")) {
+					return null;
+				}
 				ResultSet rs = this.createStatement(sql);
 				if(rs.isBeforeFirst()) {
 					return rs;

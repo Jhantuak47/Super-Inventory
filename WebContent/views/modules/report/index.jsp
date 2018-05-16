@@ -24,7 +24,7 @@
 										<br><br>
 					<div class = "card secondary" style = "box-shadow:0 0 15px 0 lightgrey;">
 						<div class = "card-body">
-							<h3 id = "heading">Provide Seller Info</h3>
+							<h3 id = "heading">Provide Seller Info</h3><hr>
 							<table align="center" style="width: 500px">
 								 <thead>
 									<tr>
@@ -39,7 +39,7 @@
 									<tr><td>3</td><td style="text-align: center;">Product name :</td> <td><span><input type = "hidden" name = "table" value = "invoice"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>
 								</tbody>
 							</table> 
-							
+							<br>
 						</div><!-- order list card body ends -->
 					</div><!--order list card ends -->
 					<br>

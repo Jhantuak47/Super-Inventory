@@ -65,12 +65,15 @@ public class GenerateReports extends HttpServlet {
 						param = new String[5];
 						param[0] = "NAME_PRODUCT_DATE";
 						param[1] = name;
-						param[4] = p_name;
 						param[2] = Fromdate;
 						param[3] = Todate;
+						param[4] = p_name;
 						
 					}
+					System.out.println(table);
+					System.out.println(param.length);
 					request.setAttribute("result", new SearchDAO().reports(table, param));
+					request.setAttribute("table", table);
 					RequestDispatcher rd = request.getRequestDispatcher("/views/modules/report/templets/reports.jsp");
 					rd.forward(request, response);
 					//new ReportsService().reports(new SearchDAO().reports(table, param));
