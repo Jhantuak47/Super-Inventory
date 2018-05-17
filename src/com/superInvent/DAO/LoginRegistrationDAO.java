@@ -46,7 +46,7 @@ public class LoginRegistrationDAO extends JDBCConnection{
 	}
 	public String insert(Users user) {
 		if(isEmailExist(user.getEmail()))
-			return "email all ready exist !";
+			return "EMAIL_EXIST";
 		query = "INSERT INTO users"
 				+ "(name, u_email, u_password, mobile, address, is_admin, last_login, created_at) VALUES"
 				+ "(?,?,?,?,?,?,?,?)";

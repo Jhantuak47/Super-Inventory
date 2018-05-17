@@ -73,7 +73,7 @@
   	    			cp.val("");
 	  	    	  }else{
 	  	    			$(".cp").each(function(){
-	  	    				cost_price += $(this).val()*1;
+	  	    				cost_price += ($(this).val()*1 ) * $(this).parent().parent().find('.qty').val();
 	  	    			});
 	  	    		  $("#sub_total").val(cost_price);
 	  	    	    }
@@ -105,6 +105,8 @@
     			  if(isNaN(qty.val())){
   	    			alert("please enter a valid Quantity!");
   	    			qty.val("");
+	  	    	  }else{
+	  	    		//chance total cost price  
 	  	    	  }
     		  }
     	});

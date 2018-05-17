@@ -111,6 +111,9 @@
 				         }else if(data.indexOf('already exist !') != -1){
 				        	 $('#p_errMsg').text($("#p_name").val() + ", "+data);
 					        	$('#p_err').show();
+				         }else if(data == "BILL_EXIST"){
+				        	 $('#p_errMsg').text("Bill no. allready exist ! Please enter from order.");
+					        	$('#p_err').show();
 				         }else{
 				        	 console.log('fail from product js');
 				        	 window.location.href = './error.jsp';

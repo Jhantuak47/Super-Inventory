@@ -48,7 +48,6 @@ public class ListCategory extends HttpServlet {
 			
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("from here");
 		String result = "";
 		try {
 			List<Object[]> categories= new CategoryDAO().getAllCategories();

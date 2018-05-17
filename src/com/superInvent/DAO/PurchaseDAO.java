@@ -70,7 +70,7 @@ public class PurchaseDAO extends JDBCConnection{
 				int purchase_id  = isBillExist(product.getBill_no());
 				
 					if(purchase_id > 0) {
-						this.executeUpdate("UPDATE `purchase_details` SET total_purchesed_amount = " + product.getPurchase_price() + " where purchase_id = "+ purchase_id);
+						this.executeUpdate("UPDATE `purchase_details` SET total_purchesed_amount = " + product.getPurchase_price() + " where id = "+ purchase_id);
 						return insertIntoProducts(product, purchase_id);
 					}
 				

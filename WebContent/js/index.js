@@ -2,7 +2,10 @@
 function login_form_validation(){
 	var email = $("#login_email").val();
 	var pass = $("#login_password").val();
-	console.log('from login validation');
+	if(email == "" || pass == ""){
+		
+		return false;
+	}else
 	return true;
 }
 
@@ -15,7 +18,6 @@ function registration(e){
 	if(pass === confirm_pass){
 			//var formData = new FormData($("#register_form"));
 			  var formData = $("#register_form").serialize();
-			console.log(formData);
 			$.ajax({
 			     type: "POST",
 			     url: './registration',
@@ -25,8 +27,8 @@ function registration(e){
 			         if(data == "success"){
 			        	 $('#success').show();
 				         $('#registerModal').click();
-			         }else if(data == "email all ready exist !"){
-			        	 $("#errorMessage").text(data);
+			         }else if(data == "EMAIL_EXIST"){
+			        	 $("#errorMessage").text("Email allready exist !");
 			        	 $('#register_modelError').show();
 			         }
 			         else{

@@ -59,15 +59,15 @@ public class InsertNewProduct extends HttpServlet {
 					double[] cpDouble = new double[cpStirng.length]; 
 					// Creates the integer array.
 					for (int i = 0; i < cpStirng.length; i++){
-						cpDouble[i] = Integer.parseInt(cpStirng[i]); 
+						cpDouble[i] = Double.parseDouble(cpStirng[i]); 
 					//Parses the integer for each string.
 					}
 					//selling_price
 					String[] spStirng = request.getParameterValues("price[]");
-					double[] spDouble = new double[cpStirng.length]; 
+					double[] spDouble = new double[spStirng.length];
 					// Creates the integer array.
 					for (int i = 0; i < spStirng.length; i++){
-						spDouble[i] = Integer.parseInt(spStirng[i]); 
+						spDouble[i] = Double.parseDouble(spStirng[i]); 
 					//Parses the integer for each string.
 					}
 					

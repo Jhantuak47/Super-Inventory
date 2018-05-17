@@ -4,8 +4,8 @@
 		    <a class="navbar-brand" href="#">Inventory</a>
 		   <% if (session.getAttribute("name") == null) { %>
 				   	<li class="nav-item"><a class = "nav-link" href='/'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
-					<li class="nav-item"><a class="nav-link" href='/services'>Service</a></li>
-					<li class="nav-item"><a class="nav-link" href='/about'>About</a></li>
+					<li class="nav-item"><a class="nav-link" href='/services.jsp'>Service</a></li>
+					<li class="nav-item"><a class="nav-link" href='/aboutUS.jsp'>About</a></li>
 					<li class="nav-item"><a class="nav-link" href='/post'>Blog</a></li>
 				<%
 				} else {
@@ -27,7 +27,7 @@
 			          Brand
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="../list_brand">List Brands</a>
+			          <a class="dropdown-item" href="/superInvent/list_brand">List Brands</a>
 			          <a class="dropdown-item" href="#">Add Brands</a>
 			          <div class="dropdown-divider"></div>
 			          <a class="dropdown-item" href="#">Reports</a>
@@ -38,7 +38,7 @@
 			          Category
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="./list_category">List Category</a>
+			          <a class="dropdown-item" href="/superInvent/list_category">List Category</a>
 			          <a class="dropdown-item" href="#">Add Category</a>
 			          <div class="dropdown-divider"></div>
 			          <a class="dropdown-item" href="#">Reports</a>
@@ -49,7 +49,7 @@
 			         	Product
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="./list_product">List Products</a>
+			          <a class="dropdown-item" href="/superInvent/list_product">List Products</a>
 			          <a class="dropdown-item" href="#">Add Products</a>
 			          <div class="dropdown-divider"></div>
 			          <a class="dropdown-item" href="#">Reports</a>

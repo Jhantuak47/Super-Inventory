@@ -42,7 +42,8 @@ public class ProductDAO extends JDBCConnection{
 					// execute insert SQL statement..
 					if(preparedStatement.executeUpdate() > 0)
 						return "success";
-				}
+				}else
+					return "BILL_EXIST";
 				
 		
 		} catch (Exception e) {

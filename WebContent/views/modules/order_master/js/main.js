@@ -69,7 +69,7 @@
     		}else{
     			if( qty.val() - 0 > tr.find(".tqty").val() ){
     				alert("sorry we dont have that much stock !");
-    				qty.val(1);
+    				qty.val(tr.find(".tqty").val());
     			}
     		  tr.find(".amt").html( qty.val() * tr.find(".price").val() * 1 );
     		  calculate($("#discount").val(), $("#paid").val());

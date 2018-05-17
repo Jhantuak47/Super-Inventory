@@ -1,41 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"><!--font awsome cdn -->
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <title>Super Inventory</title>
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
-<!--Loader  -->
-	 <div class="loadingDiv" style="display:none;position:fixed;top:0px;right:0px;width:100%;height:100%;background-color:#666;background-image:url('images/loading.gif'); background-repeat:no-repeat;background-position:center;z-index:10000000;  opacity: 0.4;">
-                    <div>
-                        <h7>Please wait...</h7>
-                    </div>
-                </div>
-<!-- end Loader -->
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<ul class = "nav navbar-nav navbar-left">
-		    <a class="navbar-brand" href="#">Inventory</a>
-		   <li class="nav-item active"><a class = "nav-link" href='/'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
-		   <li><a href='/services'>Service</a></li>
-		   <li><a href='/about'>About</a></li>
-		   <li><a href='/post'>Blog</a></li>
-		</ul>
-	      <!-- Authentication Links -->
-		<ul class = "nav navbar-nav navbar-right">
-		          <li align= "left"><a class = "nav nav-link" href="#" data-toggle="modal" data-target="#loginModal"><i class = "fa fa-user"></i>&nbsp;Login</a></li>
-		          <li><a href="#" data-toggle="modal" data-target="#registerModal">Register</a></li>
-		</ul>
-	</div>
-</nav>
-
+<jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
 	<div class="container">
 		<!-- Alerts  -->
 			<div class="alert alert-success alert-dismissible" id = "success" style = "display:none;">
@@ -126,7 +89,7 @@
 </div>
 <!-- end of login modal -->
 <!-- registration modal -->
-<button  type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#registerModal">
+<button  type="button" class="btn btn-primary " data-toggle="modal" data-target="#registerModal">
 </button>
 <div id="registerModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg modal-primary">
@@ -224,5 +187,5 @@
 </div>
 
 </body>
-</html>
-
+<jsp:include page="<%=\"inc/footer.jsp\"%>"/>
+  <script type="text/javascript" src="js/index.js"></script>
