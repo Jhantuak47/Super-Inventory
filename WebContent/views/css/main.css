@@ -1,0 +1,10 @@
+body {
+	font-family:sans-serif;
+	background-color: grey;
+	background: url("/superInvent/images/background.jpg");
+}
+
+.container {
+	width : 80%;
+	margin: auto;
+}

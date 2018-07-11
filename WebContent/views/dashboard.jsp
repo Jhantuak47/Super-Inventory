@@ -19,5 +19,5 @@
 <jsp:include page="<%=\"modules/product_master/templets/add_product.jsp\"%>"/>
 <jsp:include page="<%=\"modules/brands/templets/add_brand.jsp\"%>"/>
 <jsp:include page="<%=\"modules/category_master/templets/add_cat.jsp\"%>"/>
-<jsp:include page="<%=\"inc/footer.jsp\"%>"/>
 <script type="text/javascript" src="js/main.js"></script>
+<jsp:include page="<%=\"inc/footer.jsp\"%>"/>

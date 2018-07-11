@@ -10,8 +10,11 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <title>Super Inventory</title>
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	 <link rel = "stylesheet" href = "/superInvent/views/css/main.css" >
 </head>
 <body>
+
+
 	<jsp:include page="<%=\"/views/inc/navbar.jsp\"%>"/>
 	<jsp:include page="<%=\"/views/inc/loader.jsp\"%>"/>
 	<div class = "container">
