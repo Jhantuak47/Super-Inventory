@@ -3,7 +3,6 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.superInvent.POJO.CategoryMaster"%>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
-  <div class = "container">
             <div class="card mx-auto" style="max-width: 55rem;">
                 <div class="card-header" text-white" style="background-color:#1e90ff;">
                      <div class="row">
@@ -75,7 +74,6 @@
                    <div align="center" id = "footer"> <%= request.getAttribute("pagination") %> </div> 
                 </div>
     </div><!--end of row  -->	
-  </div> <!-- end of container -->
   <jsp:include page="<%=\"templets/edit.jsp\"%>"/>
   <jsp:include page="<%=\"templets/add_cat.jsp\"%>"/>
   <jsp:include page="<%=\"templets/delete.jsp\"%>"/>

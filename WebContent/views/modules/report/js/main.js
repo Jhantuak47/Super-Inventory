@@ -3,20 +3,16 @@ $(document)
 				function() {
 					var domain = "http://localhost:8082/superInvent/";
 
-					$("#mode_type")
-							.change(
-									function() {
+					$("#mode_type").change(function() {
 										var type = $("#mode_type").val();
-										console.log(type);
+										//console.log(type);
 										if (type == 1) {
-											$("#heading").html(
-													'Provide Seller Info');
+											$("#heading").html('Provide Seller Info');
 											var tbody = '<tr><td>1.</td><td style="text-align: center;">Seller Name :</td><td><input type = "text" class = "form-control-sm" name = "name" placeholder="Select Name" ></td></tr>';
 											tbody += '<tr><td>2.</td><td style="text-align: center;">Selling Date :</td><td><input type = "date" class = "form-control-sm" name = "dateFrom" placeholder=""> To:</td><td><input type = "date" class = "form-control-sm" name = "dateTo" ></td> </tr>';
 											tbody += '<tr><td>3.</td><td style="text-align: center;">Product name :</td> <td><span><input type = "hidden" name = "table" value = "invoice"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>';
 										} else if (type == 2) {
-											$("#heading").html(
-													'Provide Vendor Info');
+											$("#heading").html('Provide Vendor Info');
 											var tbody = '<tr><td>1.</td><td style="text-align: center;">Vendor Name :</td><td><input type = "text" class = "form-control-sm" name = "name" placeholder="Select Name"></td></tr>';
 											tbody += '<tr><td>2.</td><td style="text-align: center;">Purchase Date :</td><td><input type = "date" class = "form-control-sm" name = "dateFrom" placeholder=""> To:</td><td><input type = "date" class = "form-control-sm" name = "dateTo"></td> </tr>';
 											tbody += '<tr><td>3.</td><td>Item name :</td> <td><span><input type = "hidden" name = "table" value = "purchase"></input></span><input type = "text" class = "form-control-sm" name = "p_name" placeholder="Item name"> </td> </tr>';

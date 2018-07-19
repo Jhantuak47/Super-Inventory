@@ -13,7 +13,7 @@
 			<div class="card-body">
 				<form method = "post" action = "/superInvent/reports">
 					<div class = "form-group row">
-						<label class = "col-sm-3" align = "right">Select Transition Mode* :</label>
+						<label class = "col-sm-3" align = "right">Select Transition Mode&nbsp;<span style="color:red;">*</span> :</label>
 						<div class = "col-sm-6">
 							<select class = "form-control form-control-sm" name = "mode_type" id = "mode_type" required="required">
 								<option value = "1">Sales</option>

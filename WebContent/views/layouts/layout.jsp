@@ -11,6 +11,11 @@
     <title>Super Inventory</title>
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 	 <link rel = "stylesheet" href = "/superInvent/views/css/main.css" >
+	 <style>
+	 	.sub_table th {
+		    width: 10% !important;
+		}
+	 </style>
 </head>
 <body>
 

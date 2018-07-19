@@ -65,7 +65,6 @@ function editCategory(e){
 	if(categoryName != localStorage.getItem("edit_name") || catType != localStorage.getItem("edit_type") || catStatus != localStorage.getItem("is_check")){
 			
 			var formData = $("#edit_category_form").serialize();
-			console.log(formData);
 			$.ajax({
 			     type: "POST",
 			     url: './update_cat',
@@ -73,11 +72,11 @@ function editCategory(e){
 			     beforeSend:   function(){$('.loadingDiv').show();},
 			     success: function(data) {
 			    	 
-			    	 console.log(data);
+			    	// console.log(data);
 			    	 
 			         if(data == "UPDATED"){
 			        	 //alert('category updated successfully !');
-			        	 console.log('from success alert');
+			        	 //console.log('from success alert');
 			        	 $('#success_alert').hide();
 			        	 $('#successMessage').text('successfully category updated !');
 			        	 $('#success_alert').show();

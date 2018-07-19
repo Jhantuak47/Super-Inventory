@@ -10,7 +10,6 @@ List<ProductMaster> products =  new ArrayList<ProductMaster>();
 			 int page_no = (Integer)request.getAttribute("page_no");
 			int numberOfResultPerPage = Integer.parseInt(getServletContext().getInitParameter("resultDisplayPerPage"));
 			 int i = ( (page_no - 1) * numberOfResultPerPage ) + 1; %>
-  <div class = "container">
             <div class="card mx-auto" style="max-width: 60rem;">
                 <div class="card-header" text-white" style="background-color:#1e90ff;">
                      <div class="row">
@@ -94,7 +93,6 @@ List<ProductMaster> products =  new ArrayList<ProductMaster>();
                    <div align="center" id = "footer"> <%= request.getAttribute("pagination") %> </div> 
                 </div>
     </div><!--end of row  -->	
-  </div> <!-- end of container -->
 	<jsp:include page="<%=\"templets/edit.jsp\"%>"/>
 		<jsp:include page="<%=\"templets/view.jsp\"%>"/>
   <jsp:include page="<%=\"templets/add_product.jsp\"%>"/>

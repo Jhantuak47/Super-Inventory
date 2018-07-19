@@ -19,10 +19,15 @@
 			<div class="card-body primary">
 				<% if(rs != null){ %>
 					<% if(table.equals("purchase")){ %>
-							<table class="table">
-								<thead>
+					<%
+						int i = 0;
+								rs.next();
+								while (!rs.isAfterLast() && !x.contains(rs.getInt(1))) {
+									x.add(rs.getInt(1));
+					%>
+				<table class="table">
+								<thead class = "thead-dark">
 									<tr>
-										<th>#</th>
 										<th>vendor</th>
 										<th>Date</th>
 										<th>amount</th>
@@ -30,22 +35,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<%
-										int i = 0;
-												rs.next();
-												while (!rs.isAfterLast() && !x.contains(rs.getInt(1))) {
-													x.add(rs.getInt(1));
-									%>
+									
 									<tr>
-										<td><%=++i%></td>
 										<td><%=(rs.getString(2).equals("")) ? "<i>Nill</i>" : rs.getString(2)%></td>
 										<td><%=formatter.format(rs.getTimestamp(3))%></td>
 										<td><%=rs.getDouble(4)%></td>
 										<td><%=rs.getInt(5)%></td>
 									</tr>
-									<tr>
-										<table class="table">
-											<thead>
+								</tbody>
+							</table>
+										<table class="table table-bordered table-sm sub_table">
+											<thead class="table-warning">
 												<tr>
 													<th style="text-align: center;">#</th>
 													<th>Item</th>
@@ -60,7 +60,7 @@
 													int j = 0;
 																do {
 												%>
-												<tr>
+												<tr class="table-info">
 													<td style="text-align: center;"><%=++j%></td>
 													<td><%=rs.getString(6)%></td>
 													<td><%=rs.getDouble(7)%></td>
@@ -73,10 +73,7 @@
 												%>
 											</tbody>
 										</table>
-									</tr>
 									<%}%>
-								</tbody>
-							</table>
 
 				<%}else{ %>
 				<table class="table">

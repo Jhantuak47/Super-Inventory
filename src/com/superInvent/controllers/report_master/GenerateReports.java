@@ -70,8 +70,8 @@ public class GenerateReports extends HttpServlet {
 						param[4] = p_name;
 						
 					}
-					System.out.println(table);
-					System.out.println(param.length);
+					/*System.out.println(table);
+					System.out.println(param.length);*/
 					request.setAttribute("result", new SearchDAO().reports(table, param));
 					request.setAttribute("table", table);
 					RequestDispatcher rd = request.getRequestDispatcher("/views/modules/report/templets/reports.jsp");
