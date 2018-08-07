@@ -35,6 +35,7 @@ public class RegistrationServlet extends HttpServlet {
 			out.print(new LoginRegistrationDAO().insert(user));
 			
 		} catch (Exception e) {
+			System.out.println("error form RegistrationServlet");
 			out.println(e.getMessage());
 		}
 	}

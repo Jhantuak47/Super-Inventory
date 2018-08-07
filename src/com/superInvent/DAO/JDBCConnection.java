@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JDBCConnection {
-	private String url = "jdbc:mysql://localhost/InventoryManagement";
+	private String url = "jdbc:mysql://myinventoryinstance.cpxvt3wvgpau.ap-south-1.rds.amazonaws.com/InventoryManagement";
 	private String username = "root";
-	private String pass = "";
+	private String pass = "98353Jha#";
 	protected Connection con;
 	private Statement st;
 	

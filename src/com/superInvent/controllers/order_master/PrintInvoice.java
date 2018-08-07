@@ -3,23 +3,12 @@ package com.superInvent.controllers.order_master;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.gnostice.stardocssdk.ConnectionInfo;
-import com.gnostice.stardocssdk.FileObject;
-import com.gnostice.stardocssdk.StarDocs;
-import com.gnostice.stardocssdk.StarDocsException;
-import com.gnostice.stardocssdk.ViewResponse;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

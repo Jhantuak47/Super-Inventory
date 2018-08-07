@@ -8,14 +8,19 @@ function login_form_validation(){
 	}else
 	return true;
 }
-
+function open_reg_modal(){
+	$('#register_form').trigger('reset');
+	$('#register_btn').click();
+}
 function registration(e){
 	e.preventDefault();
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var pass = $("#password").val();
+	var mobile = $('#mobile').val();
 	var confirm_pass = $("#password-confirm").val();
 	if(pass === confirm_pass){
+		if(mobile.length == 10){	
 			//var formData = new FormData($("#register_form"));
 			  var formData = $("#register_form").serialize();
 			$.ajax({
@@ -28,7 +33,7 @@ function registration(e){
 			        	 $('#success').show();
 				         $('#registerModal').click();
 			         }else if(data == "EMAIL_EXIST"){
-			        	 $("#errorMessage").text("Email allready exist !");
+			        	 $("#errorMessage_register").text("Email allready exist !");
 			        	 $('#register_modelError').show();
 			         }
 			         else{
@@ -38,8 +43,14 @@ function registration(e){
 			         $('.loadingDiv').hide();
 			     }
 			});
+			
+		}else{
+			$("#errorMessage_register").html(" Mobile number should be equal to 10 digits !!");
+			$('#register_modelError').show();
+		}
+			
 	}else{
-		$("#errorMessage").text(" Password does not match with confirm password!.");
+		$("#errorMessage_register").html("Password does not match with confirm password !!");
 		$('#register_modelError').show();
 	}
 	

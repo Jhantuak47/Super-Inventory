@@ -1,10 +1,10 @@
 body {
 	font-family:sans-serif;
 	background-color: grey;
-	background: url("/superInvent/images/background.jpg");
+	background: url("../../images/background.jpg");
 }
-
-.container {
-	width : 80%;
-	margin: auto;
-}
+.jumbotron { min-width: 700px; 
+				width : 70%;
+				margin :auto;
+		}
+		

@@ -63,6 +63,7 @@ public class LoginRegistrationDAO extends JDBCConnection{
 			// execute insert SQL stetement
 			preparedStatement .executeUpdate();
 		} catch (Exception e) {
+			System.out.println("error form LoginRegistrationDAO insert function");
 			System.out.println(e);
 			return e.getMessage();
 		}finally {
@@ -71,7 +72,6 @@ public class LoginRegistrationDAO extends JDBCConnection{
 			} catch (SQLException e) {
 				return e.getMessage();
 			}
-			
 		}
 	  return "success";
 	}
