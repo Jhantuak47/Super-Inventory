@@ -1,7 +1,7 @@
 	 	<div class = "col-md-9">
-	 		<div class="jumbotron" style="width:100%; height:95%;">
+	 		<div class="jumbotron">
 	 			  <div class="row">
-	   				 <div class ="col-sm-4">
+	   				 <div class ="col-md-4">
 	   				 	<div class="card bg-light mb-3" style="max-width: 18rem;">
 						  <div class="card-header">Category</div>
 							  <div class="card-body">
@@ -12,7 +12,7 @@
 							  </div>
 						 </div>
 	   				 </div>
-	   				 <div class ="col-sm-4">
+	   				 <div class ="col-md-4">
 	   				 	<div class="card bg-light mb-3" style="max-width: 18rem;">
 						  <div class="card-header">Brands</div>
 							  <div class="card-body">
@@ -23,7 +23,7 @@
 							  </div>
 						 </div>
 	   				 </div>
-	   				 <div class ="col-sm-4">
+	   				 <div class ="col-md-4">
 	   				 	<div class="card bg-light mb-3" style="max-width: 18rem;">
 						  <div class="card-header">Products</div>
 						  <div class="card-body">

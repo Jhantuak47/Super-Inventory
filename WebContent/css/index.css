@@ -1,0 +1,18 @@
+.jumbotron { max-width: 800px; 
+				margin :auto;
+				height: 260px;
+}
+
+.jumbotron h2 {
+	letter-spacing: 0px;
+	font-size: 25px;
+	border-bottom: 1px solid gray;
+	display: inline;
+	padding-bottom:10px;
+	border-radius: 5px;
+	line-height: 50px;
+}
+
+.activity-buttons {
+	padding-top: 50px;
+}

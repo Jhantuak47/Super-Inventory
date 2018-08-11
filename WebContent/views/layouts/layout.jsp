@@ -12,9 +12,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <title>Supekfjr Inventory</title>
+    <title>Super Inventory</title>
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	 <link rel = "stylesheet" href = "./views/css/main.css" >
+	 <link rel = "stylesheet" href = "/Super-Inventory/css/main.css" >
 	 <style>
 	 	.sub_table th {
 		    width: 10% !important;

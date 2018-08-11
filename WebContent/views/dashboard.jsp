@@ -1,7 +1,8 @@
 <% if(session.getAttribute("name") == null) response.sendRedirect("./"); %>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
+<link rel = "stylesheet" href = "/Super-Inventory/views/css/index.css" >
   <div class="row">
-	    <div class ="col-md-3">
+	    <div class ="col-lg-3">
 			<div class="card mx-auto" style="width:15rem">
 			  <img class="card-img-top mx-auto" style = "width:60%;" src="../images/user.png" alt="Card image">
 			  <div class="card-body">

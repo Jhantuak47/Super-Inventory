@@ -2,10 +2,11 @@
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
+<link rel = "stylesheet" href = "css/index.css" >
 <div class="row">
 	<% SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy"); %>
-	<div class="col-md-12 pull-right">
-		<div class="card" style = "box-shadow:0 0 25px 0 lightgrey;">
+	<div class="col-xs-12 pull-right">
+		<div class="card parent-card" style = "box-shadow:0 0 25px 0 lightgrey;">
 			<div class="card-header"><h5>New Purchase Details</h5></div>
 			<div class="card-body">
 				<form id = "purchase_form_data">
@@ -21,7 +22,7 @@
 							<input type = "text" class = "form-control form-control-sm" name = "ven_name" id = "ven_name" placeholder="Enter vendor name" required/>
 						</div>
 					</div>
-					<div class = "card" style = "box-shadow:0 0 15px 0 lightgrey;">
+					<div class = "card child-card" style = "box-shadow:0 0 15px 0 lightgrey;">
 						<div class = "card-body">
 							<h3>Make Products list</h3>
 							<table align="center" style="width: 100%">

@@ -1,4 +1,5 @@
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
+<link rel = "stylesheet" href = "/Super-Inventory/css/index.css" >
 		<!-- Alerts  -->
 			<div class="alert alert-success alert-dismissible" id = "success" style = "display:none;">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -12,14 +13,13 @@
 		<div class="jumbotron text-center">
 			<h2>Welcome to Super Inventry !!</h2>
 			<p>This is our home page....</p>
-			<p>
+			<p class="activity-buttons">
 				<a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#loginModal">Login</a>
 				<a class="btn btn-success btn-lg" role="button" onclick = "open_reg_modal();">Register</a>
 			</p>
 		</div>
 	</div>
   <script type="text/javascript" src="js/index.js"></script>
-  
   <!-- login modal -->
 <div id="loginModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
@@ -172,4 +172,7 @@
 	        </div>
 		</div>
 	</div>
-</div><jsp:include page="<%=\"views/inc/footer.jsp\"%>"/>
+</div>
+<jsp:include page="<%=\"views/inc/footer.jsp\"%>"/>
+</div>
+</div>

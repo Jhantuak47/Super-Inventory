@@ -3,23 +3,23 @@
 		<ul class = "nav navbar-nav navbar-left">
 		    <a class="navbar-brand" href="#">Inventory</a>
 		   <% if (session.getAttribute("name") == null) { %>
-				   	<li class="nav-item"><a class = "nav-link" href='/'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
-					<li class="nav-item"><a class="nav-link" href='/services.jsp'>Service</a></li>
-					<li class="nav-item"><a class="nav-link" href='/aboutUS.jsp'>About</a></li>
-					<li class="nav-item"><a class="nav-link" href='/post'>Blog</a></li>
+				   	<li class="nav-item"><a class = "nav-link" href='./'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
+					<li class="nav-item"><a class="nav-link" href='./service.jsp'>Service</a></li>
+					<li class="nav-item"><a class="nav-link" href='./aboutUS.jsp'>About</a></li>
+					<li class="nav-item"><a class="nav-link" href='./post'>Blog</a></li>
 				<%
 				} else {
 			%>
-   					<li class="nav-item"><a class = "nav-link" href='/superInvent/views/dashboard.jsp'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
+   					<li class="nav-item"><a class = "nav-link" href='/Super-Inventory/views/dashboard.jsp'><i class = "fa fa-home"></i>&nbsp;Home</a></li>
    					<li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          Transaction
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="/superInvent/views/modules/purchase_master/index.jsp">Purchase Details</a>
-			          <a class="dropdown-item" href="/superInvent/views/modules/order_master/index.jsp">Sales Details</a>
+			          <a class="dropdown-item" href="/Super-Inventory/views/modules/purchase_master">Purchase Details</a>
+			          <a class="dropdown-item" href="/Super-Inventory/views/modules/order_master">Sales Details</a>
 			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="./modules/report/index.jsp">Reports</a>
+			          <a class="dropdown-item" href="/Super-Inventory/views/modules/report/">Reports</a>
 			        </div>
 			      </li>
 			      <li class="nav-item dropdown" style = "padding-left:20px;">

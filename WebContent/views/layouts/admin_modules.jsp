@@ -1,10 +1,10 @@
 
 <div class="row">
-	<div class="col-sm-3"></div>
-	<div class="col-sm-9">
+	<div class="col-md-3"></div>
+	<div class="col-md-9">
 		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-5">
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
 				<div class="card bg-light mb-3" style="max-width: 18rem;">
 					<div class="card-header">Orders</div>
 					<div class="card-body">
@@ -15,7 +15,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-5">
+			<div class="col-md-5">
 				<div class="card bg-light mb-3" style="max-width: 18rem;">
 					<div class="card-header">Purchase</div>
 					<div class="card-body">

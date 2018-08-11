@@ -1,6 +1,5 @@
  $( document ).ready(function() {
-        var domain = "http://localhost:8082/superInvent";
-        
+	 
     	//get invoice items...
      	getProductItem();
      	//add button to add row.
@@ -12,7 +11,7 @@
     	function getProductItem(){
     		$.ajax({
     			
-				url				:	domain + "/get_purchase_item_row",
+				url				:	"/Super-Inventory/get_purchase_item_row",
 				method			:	"GET",
 			     success: function(data) {
 			    	 $("#purchase_item").append(data);
@@ -34,7 +33,7 @@
     		console.log(formData);
     		if($("#ven_name") != "" && $("#bill_no").val() != ""){
     			$.ajax({
-        			url			:		domain+"/insert_product_bill",
+        			url			:		"/Si[er-Inventory/insert_product_bill",
         			type		:		"POST",
         			data		:		formData,
         			beforeSend	:   	function(){$('.loadingDiv').show();},

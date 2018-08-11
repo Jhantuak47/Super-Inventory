@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
-			
 			String email  = request.getParameter("login_email");
 			String pass = request.getParameter("login_password");
 			 Date dt = new Date();  
