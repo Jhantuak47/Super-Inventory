@@ -14,8 +14,8 @@
 			<h2>Welcome to Super Inventry !!</h2>
 			<p>This is our home page....</p>
 			<p class="activity-buttons">
-				<a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#loginModal">Login</a>
-				<a class="btn btn-success btn-lg" role="button" onclick = "open_reg_modal();">Register</a>
+				<a class="btn btn-primary" role="button" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+				<a class="btn btn-success" role="button" href="#" onclick = "open_reg_modal();">Register</a>
 			</p>
 		</div>
 	</div>

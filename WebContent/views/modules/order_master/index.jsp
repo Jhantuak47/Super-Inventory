@@ -4,7 +4,7 @@
 <jsp:include page="<%=\"/views/layouts/layout.jsp\"%>"/>
 <div class="row">
 	<% SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy, hh:mm"); %>
-	<div class="col-md-10 mx-auto">
+	<div class="col-xs-10 mx-auto">
 		<div class="card" style = "box-shadow:0 0 25px 0 lightgrey;">
 			<div class="card-header"><h5>New Orders</h5></div>
 			<div class="card-body">

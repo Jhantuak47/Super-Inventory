@@ -1,5 +1,5 @@
  $( document ).ready(function() {
-        var domain = "http://localhost:8082/superInvent";
+        var domain = "/Super-Inventory";
         
     	//get invoice items...
      	getInvoiceItem();
@@ -121,7 +121,7 @@
 
     });
  
- var domain = "http://localhost:8082/superInvent";
+ var domain = "/Super-Inventory";
 	//feed data into database...
 	function feedInvoiceInDB(e){
 		e.preventDefault();
@@ -158,7 +158,8 @@
 							}else if(data == "QUANTITY_EXCEED"){
 								showErrorMsg("sorry ! quantity exceed , we have limited stock !!");
 							}else
-								window.location.href = domain + '/error.php';
+								//window.location.href = domain + '/error.php';
+								console.log(data);
 							
 							
 							$('.loadingDiv').hide();

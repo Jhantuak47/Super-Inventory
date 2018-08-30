@@ -1,7 +1,6 @@
 $(document)
 		.ready(
 				function() {
-					var domain = "http://localhost:8082/superInvent/";
 
 					$("#mode_type").change(function() {
 										var type = $("#mode_type").val();

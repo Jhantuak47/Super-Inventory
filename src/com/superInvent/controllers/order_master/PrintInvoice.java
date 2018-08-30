@@ -1,8 +1,11 @@
 package com.superInvent.controllers.order_master;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +22,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.superInvent.POJO.Invoice;
 import com.superInvent.POJO.InvoiceDetails;
+
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Servlet implementation class PrintInvoice
@@ -92,9 +99,10 @@ public class PrintInvoice extends HttpServlet {
 		invoicedetails.setQty(qtyInt);
 		invoicedetails.setTqty(tqtyInt);
 		invoicedetails.setPro_name(pro_nameStirng);
-		try {
-			
-			PdfWriter writer2 = PdfWriter.getInstance(document, new FileOutputStream("/home/jhantu/EclipseWorkspace/adv_java/superInvent/WebContent/documents/invoice.pdf"));
+		try { 
+	        String workingDir =  Paths.get(".").toAbsolutePath().normalize().toString() ;
+	        System.out.println( workingDir );
+			PdfWriter writer2 = PdfWriter.getInstance(document, new FileOutputStream( workingDir + "/Projects/eclipsePhoton(JavaEE)//SuperInventory/WebContent/documents/invoice.pdf" ));
 			PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
 			
 			document.open();

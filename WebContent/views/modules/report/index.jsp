@@ -11,7 +11,7 @@
 		<div class="card" style = "box-shadow:0 0 25px 0 lightgrey;">
 			<div class="card-header"><h5>Reports</h5></div>
 			<div class="card-body">
-				<form method = "post" action = "/superInvent/reports">
+				<form method = "post" action = "/Super-Inventory/reports">
 					<div class = "form-group row">
 						<label class = "col-sm-3" align = "right">Select Transition Mode&nbsp;<span style="color:red;">*</span> :</label>
 						<div class = "col-sm-6">

@@ -60,7 +60,7 @@
 						</div>
 					</div>
 					<div align="center">
-						<input type="submit" id = "purchase_form_btn" style = "width:150px;" class = "btn btn-info" value = "Order">
+						<input type="submit" id = "purchase_form_btn" style = "width:150px;" class = "btn btn-info" value = "Save">
 						<input type="submit" id = "Print_invoice" style = "width:150px;" class = "btn btn-success d-none" value = "Print Invoice">
 					</div>
 				</form>

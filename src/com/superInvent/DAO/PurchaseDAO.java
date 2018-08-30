@@ -152,7 +152,7 @@ public class PurchaseDAO extends JDBCConnection{
 		}
 		
 		public int isBillExist(String bill_no) {
-			String query = "SELECT id from purchase_details where purchesed_bill_no = " + bill_no;
+			String query = "SELECT id from purchase_details where purchesed_bill_no = '" + bill_no + "'";
 			try {
 				ResultSet rs = this.createStatement(query);
 					if(rs.next()) {

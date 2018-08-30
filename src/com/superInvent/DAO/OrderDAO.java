@@ -90,7 +90,7 @@ public class OrderDAO extends JDBCConnection {
 
 			String sql = "INSERT INTO `invoice_details`(`invoice_no`, `product_id`, `product_price`, `qty`) "
 						+ "VALUES (?,?,?,?)";
-			/*	try {
+				try {
 					PreparedStatement ps = con.prepareStatement(sql);
 					for(int i=0; i < invoicedetails.getProduct_id().length ; i++) {
 						
@@ -123,7 +123,7 @@ public class OrderDAO extends JDBCConnection {
 				} catch (Exception e) {
 					System.out.println("error form OrderDAO insertIntoInvoiceDetails()");
 					System.out.println(e);
-				}*/
+				}
 			return "success";
 		}
 }

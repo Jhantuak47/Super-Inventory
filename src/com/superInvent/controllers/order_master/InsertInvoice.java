@@ -73,7 +73,6 @@ public class InsertInvoice extends HttpServlet {
 				invoicedetails.setTqty(tqtyInt);
 				
 				new PrintWriter(response.getWriter()).print(new OrderDAO().insert(invoice, invoicedetails));
-				
 		} catch (Exception e) {
 			System.out.println("error from InsertVoice servlet ");
 			System.out.println(e);

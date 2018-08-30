@@ -76,8 +76,11 @@
 									<%}%>
 
 				<%}else{ %>
+				<% int i = 0;rs.next();while(!rs.isAfterLast() && !x.contains(rs.getInt(1))){
+								x.add(rs.getInt(1));
+							%>
 				<table class="table">
-					<thead>
+					<thead class = "thead-dark">
 						<tr>
 							<th>#</th>
 							<th>Name</th>
@@ -89,16 +92,16 @@
 						</tr>
 					</thead>					
 					<tbody>
-					<% int i = 0;rs.next();while(!rs.isAfterLast() && !x.contains(rs.getInt(1))){
-								x.add(rs.getInt(1));
-							%>
+					
 								 <tr>
 									<td><%=++i %></td><td><%= (rs.getString(2).equals("")) ? "<i>Nill</i>" : rs.getString(2)  %></td><td><%= formatter.format(rs.getTimestamp(3)) %></td><td><%=rs.getDouble(4) %></td><td><%=rs.getDouble(5) %></td>
 									<td><%=rs.getInt(6) %></td><td><%=rs.getString(7) %></td>
 								  </tr>
 								  <tr>
-									<table class="table">
-										<thead>
+					</tbody>
+					</table>
+									<table class="table table-bordered table-sm sub_table">
+										<thead class="table-warning">
 											<tr>
 												<th style = "text-align: center;">#</th>
 												<th class="w-25">Item</th>
@@ -113,10 +116,9 @@
 										}while(rs.next() && x.contains(rs.getInt(1))); %>
 										</tbody>
 									</table>
-								</tr>
 						<%}%>
-						</tbody>
-				</table>
+						
+				
 					<%}}else{ %>
 	
 					<p style="text-align: center;">
@@ -133,5 +135,4 @@
 		<!-- primary cards primary end -->
 	</div>
 </div>
-  <script type="text/javascript" src="../js/main.js"></script>
 <jsp:include page="<%=\"/views/inc/footer.jsp\"%>"/>

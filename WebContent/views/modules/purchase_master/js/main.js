@@ -33,7 +33,7 @@
     		console.log(formData);
     		if($("#ven_name") != "" && $("#bill_no").val() != ""){
     			$.ajax({
-        			url			:		"/Si[er-Inventory/insert_product_bill",
+        			url			:		"/Super-Inventory/insert_product_bill",
         			type		:		"POST",
         			data		:		formData,
         			beforeSend	:   	function(){$('.loadingDiv').show();},
