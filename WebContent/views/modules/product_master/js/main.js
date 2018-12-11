@@ -33,6 +33,8 @@
 				         }else{
 				        	 console.log('fail from product js');
 //				        	 /window.location.href = './error.jsp';
+				        	 $('#p_errMsg').text(data);
+					        	$('#p_err').show();
 				        	 $('#add_product_close_btn').click();
 				         }
 				         $('.loadingDiv').hide();

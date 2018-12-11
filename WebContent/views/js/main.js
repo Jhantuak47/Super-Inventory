@@ -99,7 +99,7 @@
 				console.log(formData);
 				$.ajax({
 				     type: "POST",
-				     url: '/superInvent/add_product',
+				     url: '/Super-Inventory/add_product',
 				     data: formData,
 				     beforeSend:   function(){$('.loadingDiv').show();},
 				     success: function(data) {

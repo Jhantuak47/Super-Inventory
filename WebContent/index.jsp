@@ -17,6 +17,7 @@
 				<a class="btn btn-primary" role="button" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
 				<a class="btn btn-success" role="button" href="#" onclick = "open_reg_modal();">Register</a>
 			</p>
+			<marquee style = "color:red;">** You can login using our trial email:- admin@gm.com and password:- admin **</marquee>
 		</div>
 	</div>
   <script type="text/javascript" src="js/index.js"></script>

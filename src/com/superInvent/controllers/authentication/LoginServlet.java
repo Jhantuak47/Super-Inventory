@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 			String pass = request.getParameter("login_password");
 			 Date dt = new Date();  
 	         SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yy, hh:mm");
-			Users user = new LoginRegistrationDAO().getUserDetails(pass, email);
+	         Users user = new LoginRegistrationDAO().getUserDetails(pass, email);
 				if(user != null && user instanceof Users) {
 					HttpSession session = request.getSession();
 					session.setAttribute("name", user.getName());

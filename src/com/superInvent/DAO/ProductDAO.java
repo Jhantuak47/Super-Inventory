@@ -13,7 +13,7 @@ public class ProductDAO extends JDBCConnection{
 	
 	public String insert(ProductMaster product, String bill_no, String vendor_name) {
 		String query = "INSERT INTO `products`(`p_name`, `brand_id`, `category_master_id`, `price`, `avl_stock`,"
-				+"`added_date`, `status`, `type`, `wt`, `exp_date`, `batch_no`, `Description`, `is_deleted`, `purchase_id`, `cost_price`)"
+				+"`added_date`, `status`, `type`, `wt`, `exp_date`, `batch_no`, `Description`, `is_deleted`, `cost_price`)"
 				 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 				if(isAlreadyExist(product.getP_name())) {
@@ -23,7 +23,7 @@ public class ProductDAO extends JDBCConnection{
 				int purchaseId = insertBill(product.getAdded_date(), bill_no, vendor_name, 0.0);
 				if(purchaseId > 0) {
 					
-					PreparedStatement preparedStatement = con.prepareStatement(query);
+					PreparedStatement preparedStatement = con.prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setString(1, product.getP_name());
 					preparedStatement.setInt(2, product.getBrand_id());
 					preparedStatement.setInt(3, product.getCategory_master_id());
@@ -37,11 +37,22 @@ public class ProductDAO extends JDBCConnection{
 					preparedStatement.setString(11, product.getBatch_no());
 					preparedStatement.setString(12, product.getDesc());
 					preparedStatement.setInt(13, product.getIs_deleted());
-					preparedStatement.setInt(14, purchaseId);
-					preparedStatement.setDouble(15, product.getCost_price());
+					preparedStatement.setDouble(14, product.getCost_price());
 					// execute insert SQL statement..
-					if(preparedStatement.executeUpdate() > 0)
-						return "success";
+					if(preparedStatement.executeUpdate() > 0) {
+							ResultSet rs = preparedStatement.getGeneratedKeys();
+								if(rs.next()) {
+								  int  product_id = rs.getInt(1);
+								query = "INSERT INTO `product_purchase`( `product_id`, `purchase_details_id`) VALUES (?,?)";
+									preparedStatement.setInt(1,product_id);
+									preparedStatement.setInt(2,purchaseId);
+									if(preparedStatement.executeUpdate() > 0) {
+										return "success";
+									}else
+										return "fail to update product purcahse";
+								}
+					}else
+						return "fail to update product in product table";
 				}else
 					return "BILL_EXIST";
 				
